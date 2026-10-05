@@ -1,0 +1,32 @@
+// =============================================================================
+// PRISMA SCHEMA — STUB
+// The full database schema will be defined in Phase 2 (Core Database Schema).
+// This stub establishes the generator, datasource, and sets up Prisma correctly
+// so the toolchain works from Phase 1.
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NOTE: Full schema is defined in Phase 2.
+//
+// Planned models (defined in Phase 2):
+//   User, Role, Permission, RolePermission, UserRole
+//   CustomerProfile, OwnerProfile, PartnerProfile, FreelancerProfile
+//   Address
+//   Country, State, City, Area, Office
+//   Category, SpecificationKey, Product, ProductVariant
+//   ProductImage, SpecificationValue, Tag
+//   PricingRule, InventoryItem
+//   RentalRequest, Rental, RentalItem, RentalDelivery, RentalReturn
+//   DamageReport, Order, Payment, Invoice, Refund
+//   JobListing, JobApplication, Resume
+//   Notification, Enquiry, Referral, Commission, AuditLog
+// ─────────────────────────────────────────────────────────────────────────────

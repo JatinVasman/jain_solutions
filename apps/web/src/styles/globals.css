@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties (Design Tokens) ─────────────────────────────────
+   Full design token set will be established in Phase 5 (Catalogue UI).
+   These are placeholders to ensure the app compiles.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
