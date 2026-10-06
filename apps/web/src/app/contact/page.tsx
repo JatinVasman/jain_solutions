@@ -94,7 +94,7 @@ export default function ContactPage() {
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
               Monday – Saturday, 8:00 AM – 9:00 PM IST
             </p>
-            <p style={{ color: '#38bdf8', fontWeight: 600, marginTop: '0.5rem' }}>
+            <p style={{ color: 'var(--accent-primary)', fontWeight: 600, marginTop: '0.5rem' }}>
               +91 (0) 800 123 4567
             </p>
           </div>

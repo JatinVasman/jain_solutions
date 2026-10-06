@@ -7,7 +7,7 @@ export default function NotFound() {
       <p style={{ color: '#94a3b8', marginBottom: '1.5rem' }}>
         The requested resource is not available in Phase 1.
       </p>
-      <Link href="/" style={{ color: '#38bdf8', textDecoration: 'underline' }}>
+      <Link href="/" style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}>
         Return to Foundation Overview
       </Link>
     </div>

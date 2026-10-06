@@ -188,7 +188,7 @@ export default function AccountRentalDetailPage({ params }: RentalDetailProps) {
               }}
             >
               <span>Total Settled:</span>
-              <span style={{ color: '#38bdf8' }}>₹11,800</span>
+              <span style={{ color: 'var(--accent-primary)' }}>₹11,800</span>
             </div>
           </div>
 

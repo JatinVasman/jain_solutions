@@ -165,7 +165,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             </h3>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <p style={{ fontWeight: 600, color: '#38bdf8' }}>{item.owner.name}</p>
+                <p style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>{item.owner.name}</p>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   ★ {item.owner.rating} Rating &bull; Verified Business Supplier
                 </p>

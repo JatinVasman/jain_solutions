@@ -88,7 +88,7 @@ export default function ConfirmationPage({ params }: ConfirmationProps) {
               </tr>
               <tr>
                 <td style={{ fontWeight: 600, color: 'var(--text-muted)' }}>Authorized Amount</td>
-                <td style={{ color: '#38bdf8', fontWeight: 700 }}>
+                <td style={{ color: 'var(--accent-primary)', fontWeight: 700 }}>
                   ₹{(item.dailyRate * 5 + item.securityDeposit + 800).toLocaleString()} (Includes
                   Refundable Deposit)
                 </td>

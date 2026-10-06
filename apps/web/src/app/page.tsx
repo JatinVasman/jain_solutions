@@ -19,7 +19,7 @@ export default function HomePage() {
 
           <h1 className="hero-title">
             One stop for <br />
-            <span style={{ color: '#38bdf8' }}>all your needs.</span>
+            <span style={{ color: 'var(--accent-primary)' }}>all your needs.</span>
           </h1>
 
           <p className="hero-subtitle">
@@ -224,7 +224,7 @@ export default function HomePage() {
                 style={{
                   fontSize: '2rem',
                   fontWeight: 800,
-                  color: '#38bdf8',
+                  color: 'var(--accent-primary)',
                   display: 'block',
                   marginBottom: '0.75rem',
                 }}
@@ -259,7 +259,7 @@ export default function HomePage() {
                 style={{
                   fontSize: '2rem',
                   fontWeight: 800,
-                  color: '#38bdf8',
+                  color: 'var(--accent-primary)',
                   display: 'block',
                   marginBottom: '0.75rem',
                 }}
@@ -294,7 +294,7 @@ export default function HomePage() {
                 style={{
                   fontSize: '2rem',
                   fontWeight: 800,
-                  color: '#38bdf8',
+                  color: 'var(--accent-primary)',
                   display: 'block',
                   marginBottom: '0.75rem',
                 }}
@@ -329,7 +329,7 @@ export default function HomePage() {
                 style={{
                   fontSize: '2rem',
                   fontWeight: 800,
-                  color: '#38bdf8',
+                  color: 'var(--accent-primary)',
                   display: 'block',
                   marginBottom: '0.75rem',
                 }}
@@ -452,9 +452,8 @@ export default function HomePage() {
         <div className="page-container">
           <div
             style={{
-              background:
-                'linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(13, 148, 136, 0.15) 100%)',
-              border: '1px solid var(--border-light)',
+              background: 'linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%)',
+              border: '1px solid #99f6e4',
               borderRadius: 'var(--radius-lg)',
               padding: '3.5rem 2rem',
               textAlign: 'center',

@@ -208,7 +208,7 @@ export default function RentalDetailsPage({ params }: RentalDetailsProps) {
               }}
             >
               <span style={{ color: 'var(--text-title)' }}>Total Authorization:</span>
-              <span style={{ color: '#38bdf8' }}>
+              <span style={{ color: 'var(--accent-primary)' }}>
                 ₹{(item.dailyRate * 5 + item.securityDeposit + 800).toLocaleString()}
               </span>
             </div>

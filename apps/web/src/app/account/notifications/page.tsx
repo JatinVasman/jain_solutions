@@ -56,7 +56,9 @@ export default function AccountNotificationsPage() {
               style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem' }}
             >
               <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-title)' }}>
-                {!n.read && <span style={{ color: '#38bdf8', marginRight: '0.5rem' }}>●</span>}
+                {!n.read && (
+                  <span style={{ color: 'var(--accent-primary)', marginRight: '0.5rem' }}>●</span>
+                )}
                 {n.title}
               </h3>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>{n.time}</span>
