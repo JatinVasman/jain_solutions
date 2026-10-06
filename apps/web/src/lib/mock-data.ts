@@ -50,6 +50,10 @@ export interface JobItem {
   type: string;
   experience: string;
   description: string;
+  salaryRange?: string;
+  tags?: string[];
+  postedDate?: string;
+  featured?: boolean;
 }
 
 export const CATEGORIES: CategoryItem[] = [
@@ -303,6 +307,10 @@ export const JOB_LISTINGS: JobItem[] = [
     location: 'Bengaluru, Karnataka',
     type: 'Full-time',
     experience: '3-5 years',
+    salaryRange: '₹14L - ₹18L CTC',
+    tags: ['Hub Logistics', 'Team Lead', 'Fleet QA'],
+    postedDate: '2 days ago',
+    featured: true,
     description:
       'Lead day-to-day equipment intake, quality inspections, maintenance scheduling, and outbound dispatch operations at our central regional hub.',
   },
@@ -313,6 +321,10 @@ export const JOB_LISTINGS: JobItem[] = [
     location: 'New Delhi & NCR',
     type: 'Full-time',
     experience: '4+ years',
+    salaryRange: '₹10L - ₹15L CTC',
+    tags: ['Hardware QA', 'Power Systems', 'Calibration'],
+    postedDate: '3 days ago',
+    featured: true,
     description:
       'Diagnose, calibrate, and service rental inventory across power electronics, inverters, projection systems, and stage equipment.',
   },
@@ -323,6 +335,9 @@ export const JOB_LISTINGS: JobItem[] = [
     location: 'Mumbai, Maharashtra',
     type: 'Full-time',
     experience: '2-4 years',
+    salaryRange: '₹12L - ₹16L CTC + Incentives',
+    tags: ['B2B Sales', 'Partner Acquisition', 'Fleet Expansion'],
+    postedDate: '5 days ago',
     description:
       'Onboard and build long-term relationships with regional equipment owners, fleet operators, and commercial rental houses.',
   },
@@ -333,7 +348,37 @@ export const JOB_LISTINGS: JobItem[] = [
     location: 'Remote (India)',
     type: 'Full-time',
     experience: '1-3 years',
+    salaryRange: '₹6L - ₹9L CTC',
+    tags: ['Customer Success', 'Escalations', 'Order Logistics'],
+    postedDate: 'Just now',
     description:
       'Coordinate custom multi-category rental enquiries, schedule delivery windows, and assist customers with booking logistics.',
+  },
+  {
+    id: 'job-5',
+    title: 'Full Stack Platform Engineer',
+    department: 'Engineering & Tech',
+    location: 'Bengaluru / Hybrid',
+    type: 'Full-time',
+    experience: '2-5 years',
+    salaryRange: '₹18L - ₹26L CTC + ESOPs',
+    tags: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL'],
+    postedDate: '1 day ago',
+    featured: true,
+    description:
+      'Build core multi-category rental architecture, real-time inventory reservation engines, and automated billing pipelines.',
+  },
+  {
+    id: 'job-6',
+    title: 'Regional Fleet & Field Logistics Associate',
+    department: 'Logistics & Supply Chain',
+    location: 'Pune, Maharashtra',
+    type: 'Full-time',
+    experience: '1-3 years',
+    salaryRange: '₹5L - ₹8L CTC',
+    tags: ['Field Dispatch', 'Hub Ops', 'Driver Coordination'],
+    postedDate: '4 days ago',
+    description:
+      'Supervise on-ground fleet dispatches, rapid return inspections, and last-mile pickup execution across enterprise client sites.',
   },
 ];

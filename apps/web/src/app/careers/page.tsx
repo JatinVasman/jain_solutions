@@ -127,9 +127,9 @@ export default function CareersPage() {
           ))}
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <Link href="/jobs" className="btn btn-outline">
-            View Complete Careers Portal & Department Filters →
+        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          <Link href="/jobs" className="btn btn-secondary btn-lg">
+            Explore All Open Roles & Department Filters →
           </Link>
         </div>
       </div>
