@@ -2,28 +2,26 @@
   "name": "rental-platform",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "npm@10.9.8",
-  "description": "One-Stop Rental Marketplace — Monorepo Root",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@9.15.4",
+  "description": "Multi-Category Rental Marketplace — Monorepo Root",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
-    "type-check": "turbo run type-check",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "test:e2e": "turbo run test:e2e",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,yml,yaml}\"",
+    "clean": "turbo run clean"
   },
   "devDependencies": {
-    "turbo": "^2.0.0",
-    "prettier": "^3.3.0",
-    "typescript": "^5.5.0"
+    "prettier": "^3.3.3",
+    "turbo": "^2.1.3",
+    "typescript": "^5.5.4"
   },
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=9.0.0"
   }
 }

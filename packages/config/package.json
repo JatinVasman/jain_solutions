@@ -13,10 +13,12 @@
   },
   "scripts": {
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "type-check": "tsc --noEmit",
+    "lint": "echo 'No lint configured for config package'",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "typescript": "*"
+    "typescript": "^5.5.4"
   }
 }

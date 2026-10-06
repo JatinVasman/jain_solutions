@@ -1,0 +1,21 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -----------------------------------------------------------------------------
+// Baseline Infrastructure Entity
+// Used for database connection verification and health checks.
+// Domain business entities will be incrementally introduced in Phase 2+.
+// -----------------------------------------------------------------------------
+model SystemHealth {
+  id        String   @id @default(uuid())
+  checkedAt DateTime @default(now()) @map("checked_at")
+  status    String   @default("ok")
+
+  @@map("system_health")
+}

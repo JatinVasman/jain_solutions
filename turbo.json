@@ -1,6 +1,5 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -12,13 +11,20 @@
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
     },
     "type-check": {
-      "dependsOn": ["^type-check"]
+      "dependsOn": ["^build"]
     },
     "test": {
       "dependsOn": ["^build"],
+      "cache": false
+    },
+    "test:e2e": {
+      "dependsOn": ["build"],
       "cache": false
     },
     "clean": {

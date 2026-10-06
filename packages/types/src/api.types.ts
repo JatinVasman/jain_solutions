@@ -1,61 +1,34 @@
-// =============================================================================
-// API TYPES
-// Standard request/response envelope types shared between FE and BE.
-// =============================================================================
-
 /**
- * Standard paginated query parameters accepted by list endpoints.
+ * Standard API Response Structures
  */
-export interface PaginationQuery {
-  page?: number;
-  limit?: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+
+export interface ApiResponse<T> {
+  success: boolean;
+  statusCode: number;
+  data: T;
+  message?: string;
+  timestamp: string;
 }
 
-/**
- * Pagination metadata returned with list responses.
- */
+export interface ApiErrorResponse {
+  success: false;
+  statusCode: number;
+  error: string;
+  message: string | string[];
+  timestamp: string;
+  path: string;
+}
+
 export interface PaginationMeta {
   page: number;
   limit: number;
-  total: number;
+  totalItems: number;
   totalPages: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
 }
 
-/**
- * Standard successful API response envelope.
- */
-export interface ApiResponse<T = unknown> {
-  success: true;
-  message: string;
-  data: T;
-  meta?: PaginationMeta;
+export interface PaginatedResponse<T> {
+  items: T[];
+  meta: PaginationMeta;
 }
-
-/**
- * Standard error response envelope.
- */
-export interface ApiErrorResponse {
-  success: false;
-  error: {
-    code: string;
-    message: string;
-    details?: ApiValidationError[];
-  };
-}
-
-/**
- * Validation error detail (from Zod or manual validation).
- */
-export interface ApiValidationError {
-  field: string;
-  message: string;
-}
-
-/**
- * Generic paginated list response.
- */
-export type PaginatedResponse<T> = ApiResponse<T[]> & { meta: PaginationMeta };
