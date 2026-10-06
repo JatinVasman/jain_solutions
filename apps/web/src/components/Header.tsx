@@ -8,8 +8,8 @@ export const Header: React.FC = () => {
     <header className="site-header">
       <div className="header-inner">
         <Link href="/" className="site-logo">
-          <span className="logo-icon">R</span>
-          <span>Rental Marketplace</span>
+          <span className="logo-icon">J</span>
+          <span>Jain Solutions</span>
         </Link>
 
         <nav aria-label="Main Navigation">

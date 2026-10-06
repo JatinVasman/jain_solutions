@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Admin Console | Jain Telecome Marketplace',
+  title: 'Admin Console | Jain Solutions',
 };
 
 export default function AdminDashboardPage() {

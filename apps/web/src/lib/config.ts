@@ -3,7 +3,7 @@
  */
 
 export const envConfig = {
-  appName: process.env.NEXT_PUBLIC_APP_NAME || 'Rental Marketplace',
+  appName: process.env.NEXT_PUBLIC_APP_NAME || 'Jain Solutions',
   apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1',
   apiRootUrl: (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1').replace(
     /\/api\/v1\/?$/,

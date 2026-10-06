@@ -5,11 +5,11 @@ import { Footer } from '../components/Footer';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Rental Marketplace',
-    default: 'Rental Marketplace — You Need It. We Can Get It.',
+    template: '%s | Jain Solutions',
+    default: 'Jain Solutions — One stop for all your needs',
   },
   description:
-    'One-stop multi-category rental marketplace for power equipment, electronics, cameras, vehicles, machinery, and tools.',
+    'Jain Solutions: One stop for all your needs. Multi-category rental marketplace for power equipment, electronics, cameras, vehicles, machinery, and tools.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

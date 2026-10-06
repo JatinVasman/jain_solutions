@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { JOB_LISTINGS } from '../../lib/mock-data';
 
 export const metadata: Metadata = {
-  title: 'Open Careers & Job Opportunities | Jain Telecome Rentals',
+  title: 'Open Careers & Job Opportunities | Jain Solutions',
   description:
     'Explore career openings in operations, technology, logistics, and partner management.',
 };

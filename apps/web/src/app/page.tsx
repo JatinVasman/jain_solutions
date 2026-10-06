@@ -14,12 +14,12 @@ export default function HomePage() {
         <div className="page-container">
           <div className="hero-badge">
             <span>✨</span>
-            <span>One-Stop Multi-Category Rental Marketplace</span>
+            <span>Jain Solutions</span>
           </div>
 
           <h1 className="hero-title">
-            You need it. <br />
-            <span style={{ color: '#38bdf8' }}>We can get it.</span>
+            One stop for <br />
+            <span style={{ color: '#38bdf8' }}>all your needs.</span>
           </h1>
 
           <p className="hero-subtitle">

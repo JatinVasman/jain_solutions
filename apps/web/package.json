@@ -2,7 +2,7 @@
   "name": "@rental-platform/web",
   "version": "0.1.0",
   "private": true,
-  "description": "Multi-Category Rental Marketplace — Next.js Web Application",
+  "description": "Jain Solutions — One stop for all your needs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

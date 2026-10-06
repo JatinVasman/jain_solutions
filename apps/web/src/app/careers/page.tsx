@@ -16,7 +16,7 @@ export default function CareersPage() {
 
       <div className="section-header">
         <span className="section-tag">Join Our Team</span>
-        <h1 className="section-title">Careers at Rental Marketplace</h1>
+        <h1 className="section-title">Careers at Jain Solutions</h1>
         <p className="section-desc">
           Help build the supply chain and software driving the circular sharing economy for physical
           infrastructure.

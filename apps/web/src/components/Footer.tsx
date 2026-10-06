@@ -7,12 +7,12 @@ export const Footer: React.FC = () => {
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-brand">
-            <h4>Rental Marketplace</h4>
+            <h4>Jain Solutions</h4>
             <p>
               The multi-category rental marketplace for high-performance equipment, fleet,
               machinery, and tools.
             </p>
-            <span className="footer-tagline">“You need it. We can get it.”</span>
+            <span className="footer-tagline">“One stop for all your needs”</span>
           </div>
 
           <div className="footer-col">
@@ -104,7 +104,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Rental Marketplace Platform. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Jain Solutions. All rights reserved.</p>
           <div className="footer-legal-links">
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>

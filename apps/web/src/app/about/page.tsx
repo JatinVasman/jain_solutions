@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { Breadcrumb } from '../../components/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'About the Platform',
-  description: 'Learn about the one-stop multi-category rental marketplace.',
+  title: 'About Jain Solutions',
+  description: 'Learn about Jain Solutions: One stop for all your needs.',
 };
 
 export default function AboutPage() {
@@ -15,7 +15,7 @@ export default function AboutPage() {
 
       <div className="section-header">
         <span className="section-tag">Our Vision</span>
-        <h1 className="section-title">The One-Stop Equipment Rental Marketplace</h1>
+        <h1 className="section-title">About Jain Solutions</h1>
         <p className="section-desc">
           Building the digital infrastructure for physical asset sharing across commercial and
           industrial verticals.
@@ -40,7 +40,7 @@ export default function AboutPage() {
           }}
         >
           <h2 style={{ fontSize: '1.35rem', color: 'var(--text-title)', marginBottom: '0.75rem' }}>
-            &ldquo;You need it. We can get it.&rdquo;
+            &ldquo;One stop for all your needs&rdquo;
           </h2>
           <p style={{ color: 'var(--text-muted)', lineHeight: 1.8 }}>
             Whether an enterprise requires a 100kVA generator for a factory outage, a film crew

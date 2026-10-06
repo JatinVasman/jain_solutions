@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'My Submitted Job Applications | Jain Telecome Rentals',
+  title: 'My Submitted Job Applications | Jain Solutions',
   description: 'View the status and history of your job applications.',
 };
 
@@ -45,8 +45,7 @@ export default function ApplicationsTrackerPage() {
           My Career Applications ({APPLICATIONS.length})
         </h1>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem' }}>
-          Real-time tracking of candidate applications submitted to Jain Telecome Rentals
-          marketplace.
+          Real-time tracking of candidate applications submitted to Jain Solutions marketplace.
         </p>
       </div>
 

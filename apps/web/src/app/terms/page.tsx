@@ -43,7 +43,7 @@ export default function TermsPage() {
             1. Platform Nature
           </h2>
           <p>
-            Rental Marketplace operates as an intermediary technology platform connecting verified
+            Jain Solutions operates as an intermediary technology platform connecting verified
             equipment owners with commercial and retail rental customers. The platform coordinates
             verification, inspection logging, dispatch scheduling, and deposit escrow.
           </p>
