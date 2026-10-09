@@ -10,7 +10,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card">
       <div className="product-image-placeholder">
-        <span>[ Image Placeholder ]</span>
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="product-card-real-img"
+            loading="lazy"
+          />
+        ) : (
+          <span>[ Image Placeholder ]</span>
+        )}
         <div className="product-badge-overlay">
           <span className={`status-badge ${product.availability}`}>
             {product.availability === 'available'
@@ -25,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="product-card-body">
         <span className="product-category-tag">{product.category}</span>
         <h3 className="product-card-title">
-          <Link href={`/products/${product.slug}`}>{product.name}</Link>
+          <a href="#how-it-works">{product.name}</a>
         </h3>
 
         <div className="product-card-location">
@@ -41,9 +50,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </span>
           </div>
 
-          <Link href={`/products/${product.slug}`} className="btn btn-primary btn-sm">
+          <a href="#how-it-works" className="btn btn-primary btn-sm">
             View / Rent
-          </Link>
+          </a>
         </div>
       </div>
     </div>

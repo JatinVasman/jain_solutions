@@ -8,7 +8,7 @@ export interface CategoryCardProps {
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
-    <Link href={`/categories/${category.slug}`} className="category-card">
+    <a href="#featured-equipment" className="category-card">
       <div className="category-icon-box">{category.icon}</div>
       <h3 className="category-card-title">{category.name}</h3>
       <p className="category-card-desc">{category.description}</p>
@@ -16,6 +16,6 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
         <span>{category.itemCount}+ Units Listed</span>
         <span>Explore →</span>
       </div>
-    </Link>
+    </a>
   );
 };

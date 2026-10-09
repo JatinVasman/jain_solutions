@@ -3,173 +3,135 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Freelancer Dashboard | Field Operations',
+  title: 'Field Technician & Freelancer Portal | Jain Solutions',
+  description: 'Operations and dispatch workspace for certified field technicians.',
 };
 
-export default function FreelancerDashboardPage() {
+export default function FreelancerPortalPage() {
   return (
-    <div>
-      <div className="portal-header">
-        <div>
-          <h1 className="portal-title">Field Specialist Dashboard</h1>
-          <p className="portal-subtitle">
-            On-site equipment deployment, quality inspection, and return check-ins.
-          </p>
-        </div>
-        <div>
-          <span className="status-badge available">● Active On Shift</span>
-        </div>
+    <div className="page-container" style={{ maxWidth: '820px', padding: '3rem 1.5rem 5rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <Link href="/" style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+          ← Back to Marketplace
+        </Link>
       </div>
 
       <div
+        className="card"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '1rem',
-          marginBottom: '1.5rem',
+          padding: '2.5rem',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-md)',
+          border: '1px solid var(--border-light)',
+          background: '#ffffff',
+          textAlign: 'center',
         }}
       >
-        <div className="card" style={{ padding: '1.25rem' }}>
-          <p
-            style={{
-              fontSize: '0.85rem',
-              color: 'var(--color-text-muted)',
-              marginBottom: '0.35rem',
-            }}
-          >
-            Tasks Assigned Today
-          </p>
-          <p style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--color-primary)' }}>3</p>
-          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-            2 Inspections, 1 Setup
-          </span>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            background: 'var(--teal-50)',
+            border: '2px solid var(--teal-200)',
+            fontSize: '2rem',
+            marginBottom: '1.25rem',
+          }}
+        >
+          🔧
         </div>
-        <div className="card" style={{ padding: '1.25rem' }}>
-          <p
-            style={{
-              fontSize: '0.85rem',
-              color: 'var(--color-text-muted)',
-              marginBottom: '0.35rem',
-            }}
-          >
-            Tasks Completed (This Month)
-          </p>
-          <p style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--color-text)' }}>24</p>
-          <span style={{ fontSize: '0.75rem', color: 'var(--status-green)' }}>
-            99.2% on-time rating
-          </span>
-        </div>
-        <div className="card" style={{ padding: '1.25rem' }}>
-          <p
-            style={{
-              fontSize: '0.85rem',
-              color: 'var(--color-text-muted)',
-              marginBottom: '0.35rem',
-            }}
-          >
-            Earned Fee (MTD)
-          </p>
-          <p style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--status-green)' }}>
-            ₹36,800
-          </p>
-          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-            Disbursement due Friday
-          </span>
-        </div>
-        <div className="card" style={{ padding: '1.25rem' }}>
-          <p
-            style={{
-              fontSize: '0.85rem',
-              color: 'var(--color-text-muted)',
-              marginBottom: '0.35rem',
-            }}
-          >
-            Assigned Zone
-          </p>
-          <p style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--color-text)' }}>
-            Delhi NCR
-          </p>
-          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-            Okhla & South Hub
-          </span>
-        </div>
-      </div>
 
-      <div className="card" style={{ padding: '1.25rem' }}>
+        <span
+          style={{
+            display: 'inline-block',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: 'var(--teal-700)',
+            background: 'var(--teal-50)',
+            border: '1px solid var(--teal-200)',
+            padding: '0.25rem 0.75rem',
+            borderRadius: 'var(--radius-pill)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: '0.85rem',
+          }}
+        >
+          Field Technicians & Specialists
+        </span>
+
+        <h1 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>
+          Freelancer & Technician Portal
+        </h1>
+
+        <p
+          className="section-desc"
+          style={{
+            fontSize: '0.975rem',
+            maxWidth: '560px',
+            margin: '0 auto 1.75rem',
+            lineHeight: 1.6,
+          }}
+        >
+          This portal is currently under active development. Direct access via public navigation
+          has been removed and will be accessible via our technician login method.
+        </p>
+
+        <div
+          style={{
+            background: '#f8fafc',
+            border: '1px dashed var(--border-teal-subtle)',
+            borderRadius: 'var(--radius-md)',
+            padding: '1.25rem 1.5rem',
+            maxWidth: '540px',
+            margin: '0 auto 2rem',
+            textAlign: 'left',
+          }}
+        >
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.825rem',
+              fontWeight: 700,
+              color: 'var(--teal-800)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+            }}
+          >
+            🔒 Upcoming Capabilities
+          </p>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: '1.2rem',
+              fontSize: '0.85rem',
+              color: 'var(--text-body)',
+              lineHeight: 1.6,
+            }}
+          >
+            <li>On-demand equipment delivery & pickup dispatch assignments</li>
+            <li>Digital return inspection reports & condition scoring</li>
+            <li>On-site equipment calibration, servicing, and setup logs</li>
+            <li>Task-based earnings and per-dispatch payout history</li>
+          </ul>
+        </div>
+
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '1rem',
+            gap: '1rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
           }}
         >
-          <h2 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Active Field Tasks Queue</h2>
-          <Link href="/freelancer/tasks" className="btn btn-outline btn-sm">
-            View All Assigned Tasks
+          <Link href="/login" className="btn btn-primary btn-md">
+            Sign In to Technician Account →
           </Link>
-        </div>
-        <div className="table-container">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Task ID</th>
-                <th>Type</th>
-                <th>Equipment Asset</th>
-                <th>Client Site / Location</th>
-                <th>Scheduled Time</th>
-                <th>Priority</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#TSK-4091</td>
-                <td>Pre-Delivery Inspection</td>
-                <td>Silent Diesel Generator (62.5 kVA)</td>
-                <td>Noida Sector 62, B-Block</td>
-                <td>Today, 14:00 IST</td>
-                <td>
-                  <span className="status-badge booked">Urgent</span>
-                </td>
-                <td>
-                  <Link href="/freelancer/tasks/TSK-4091" className="btn btn-outline btn-sm">
-                    View Task →
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#TSK-4092</td>
-                <td>On-Site Rigging / Setup</td>
-                <td>Sony FX6 Cinema Camera Rig + Gimbals</td>
-                <td>Film City, Noida Gate 3</td>
-                <td>Today, 16:30 IST</td>
-                <td>
-                  <span className="status-badge available">Normal</span>
-                </td>
-                <td>
-                  <Link href="/freelancer/tasks/TSK-4092" className="btn btn-outline btn-sm">
-                    View Task →
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#TSK-4093</td>
-                <td>Return Health Audit</td>
-                <td>Demolition Jackhammer (Hilti TE 3000)</td>
-                <td>Okhla Industrial Area Phase 2</td>
-                <td>Tomorrow, 10:00 IST</td>
-                <td>
-                  <span className="status-badge available">Normal</span>
-                </td>
-                <td>
-                  <Link href="/freelancer/tasks/TSK-4093" className="btn btn-outline btn-sm">
-                    View Task →
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <Link href="/" className="btn btn-secondary btn-md">
+            Return to Marketplace Home
+          </Link>
         </div>
       </div>
     </div>

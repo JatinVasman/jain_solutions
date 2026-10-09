@@ -3,86 +3,135 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Partner Dashboard | Partner Portal',
+  title: 'Commercial Partner Portal | Jain Solutions',
+  description: 'Partnership and affiliate workspace for enterprise rental collaborators.',
 };
 
-export default function PartnerOverviewPage() {
+export default function PartnerPortalPage() {
   return (
-    <div>
-      <div className="portal-header">
-        <div>
-          <h1 className="portal-title">Partner Program Dashboard</h1>
-          <p className="portal-subtitle">
-            Track referred client rental volumes, pipeline status, and affiliate commissions.
+    <div className="page-container" style={{ maxWidth: '820px', padding: '3rem 1.5rem 5rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <Link href="/" style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+          ← Back to Marketplace
+        </Link>
+      </div>
+
+      <div
+        className="card"
+        style={{
+          padding: '2.5rem',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-md)',
+          border: '1px solid var(--border-light)',
+          background: '#ffffff',
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            background: 'var(--teal-50)',
+            border: '2px solid var(--teal-200)',
+            fontSize: '2rem',
+            marginBottom: '1.25rem',
+          }}
+        >
+          🤝
+        </div>
+
+        <span
+          style={{
+            display: 'inline-block',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: 'var(--teal-700)',
+            background: 'var(--teal-50)',
+            border: '1px solid var(--teal-200)',
+            padding: '0.25rem 0.75rem',
+            borderRadius: 'var(--radius-pill)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: '0.85rem',
+          }}
+        >
+          Business & Commercial Partners
+        </span>
+
+        <h1 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>
+          Commercial Partner Portal
+        </h1>
+
+        <p
+          className="section-desc"
+          style={{
+            fontSize: '0.975rem',
+            maxWidth: '560px',
+            margin: '0 auto 1.75rem',
+            lineHeight: 1.6,
+          }}
+        >
+          This portal is currently under active development. Direct access via public navigation
+          has been removed and will be accessible via our partner login method.
+        </p>
+
+        <div
+          style={{
+            background: '#f8fafc',
+            border: '1px dashed var(--border-teal-subtle)',
+            borderRadius: 'var(--radius-md)',
+            padding: '1.25rem 1.5rem',
+            maxWidth: '540px',
+            margin: '0 auto 2rem',
+            textAlign: 'left',
+          }}
+        >
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.825rem',
+              fontWeight: 700,
+              color: 'var(--teal-800)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+            }}
+          >
+            🔒 Upcoming Capabilities
           </p>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: '1.2rem',
+              fontSize: '0.85rem',
+              color: 'var(--text-body)',
+              lineHeight: 1.6,
+            }}
+          >
+            <li>B2B partner dashboard & enterprise order referrals</li>
+            <li>Real-time commission tracking and payout ledgers</li>
+            <li>Co-branded fleet hosting & regional franchise analytics</li>
+            <li>Dedicated relationship manager communications</li>
+          </ul>
         </div>
-        <button type="button" className="btn btn-primary btn-sm">
-          + Generate New Referral Link
-        </button>
-      </div>
 
-      <div className="stat-grid">
-        <div className="stat-card">
-          <div className="stat-card-label">Total Referred Clients</div>
-          <div className="stat-card-value">18</div>
-          <div className="stat-card-trend">● 14 Active Accounts</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Active Rental GMV</div>
-          <div className="stat-card-value">₹8,45,000</div>
-          <div className="stat-card-trend">Across 22 Projects</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Accrued Commission</div>
-          <div className="stat-card-value">₹42,250</div>
-          <div className="stat-card-trend">5% Flat Partner Share</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Conversion Rate</div>
-          <div className="stat-card-value">68.2%</div>
-          <div className="stat-card-trend">Top tier referral tier</div>
-        </div>
-      </div>
-
-      <div style={{ marginBottom: '2.5rem' }}>
-        <h2 style={{ fontSize: '1.25rem', color: 'var(--text-title)', marginBottom: '1rem' }}>
-          Recent Referred Bookings
-        </h2>
-        <div className="table-container">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Referral ID</th>
-                <th>Client Organization</th>
-                <th>Equipment Category</th>
-                <th>Rental Volume</th>
-                <th>Your Commission</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#REF-8801</td>
-                <td>Metro Cinema Studios</td>
-                <td>Cameras & Audio</td>
-                <td>₹95,000</td>
-                <td style={{ fontWeight: 600, color: 'var(--status-green)' }}>₹4,750</td>
-                <td>
-                  <span className="status-badge available">Settled</span>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#REF-8802</td>
-                <td>GreenTech Infrastructure</td>
-                <td>Heavy Machinery</td>
-                <td>₹1,80,000</td>
-                <td style={{ fontWeight: 600, color: 'var(--status-green)' }}>₹9,000</td>
-                <td>
-                  <span className="status-badge booked">Active On-Site</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div
+          style={{
+            display: 'flex',
+            gap: '1rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Link href="/login" className="btn btn-primary btn-md">
+            Sign In to Partner Account →
+          </Link>
+          <Link href="/" className="btn btn-secondary btn-md">
+            Return to Marketplace Home
+          </Link>
         </div>
       </div>
     </div>

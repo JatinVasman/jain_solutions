@@ -3,95 +3,135 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Customer Account Overview',
+  title: 'Customer Account | Jain Solutions',
+  description: 'Manage rental orders, active equipment handovers, and account security.',
 };
 
-export default function AccountOverviewPage() {
+export default function AccountPortalPage() {
   return (
-    <div>
-      <div className="portal-header">
-        <div>
-          <h1 className="portal-title">Customer Dashboard</h1>
-          <p className="portal-subtitle">
-            Welcome back, Vikram. Manage your ongoing equipment rentals and deliveries.
-          </p>
-        </div>
-        <Link href="/products" className="btn btn-primary btn-sm">
-          + Book New Rental
+    <div className="page-container" style={{ maxWidth: '820px', padding: '3rem 1.5rem 5rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <Link href="/" style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+          ← Back to Marketplace
         </Link>
       </div>
 
-      <div className="stat-grid">
-        <div className="stat-card">
-          <div className="stat-card-label">Active On-Site Rentals</div>
-          <div className="stat-card-value">2</div>
-          <div className="stat-card-trend">● Due for return in 3 days</div>
+      <div
+        className="card"
+        style={{
+          padding: '2.5rem',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-md)',
+          border: '1px solid var(--border-light)',
+          background: '#ffffff',
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            background: 'var(--teal-50)',
+            border: '2px solid var(--teal-200)',
+            fontSize: '2rem',
+            marginBottom: '1.25rem',
+          }}
+        >
+          🛒
         </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Completed Bookings</div>
-          <div className="stat-card-value">7</div>
-          <div className="stat-card-trend">✓ All deposits settled</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Security Deposits in Escrow</div>
-          <div className="stat-card-value">₹20,000</div>
-          <div className="stat-card-trend">Refundable upon hub check</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Saved Equipment</div>
-          <div className="stat-card-value">4</div>
-          <div className="stat-card-trend">3 available for instant dispatch</div>
-        </div>
-      </div>
 
-      {/* Active Rentals Table */}
-      <div style={{ marginBottom: '2.5rem' }}>
-        <h2 style={{ fontSize: '1.25rem', color: 'var(--text-title)', marginBottom: '1rem' }}>
-          Active Equipment Rentals
-        </h2>
-        <div className="table-container">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Booking Ref</th>
-                <th>Equipment Name</th>
-                <th>Category</th>
-                <th>Tenure Window</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#RNT-2026-8941</td>
-                <td>5 kVA Pure Sine Wave Inverter System</td>
-                <td>Power & Energy</td>
-                <td>10 Oct – 15 Oct 2026</td>
-                <td>
-                  <span className="status-badge available">On-Site Active</span>
-                </td>
-                <td>
-                  <Link href="/account/rentals/RNT-2026-8941" className="btn btn-outline btn-sm">
-                    Details →
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#RNT-2026-8712</td>
-                <td>Sony FX3 Full-Frame Cinema Kit</td>
-                <td>Cameras & Audio</td>
-                <td>08 Oct – 12 Oct 2026</td>
-                <td>
-                  <span className="status-badge available">On-Site Active</span>
-                </td>
-                <td>
-                  <Link href="/account/rentals/RNT-2026-8712" className="btn btn-outline btn-sm">
-                    Details →
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <span
+          style={{
+            display: 'inline-block',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: 'var(--teal-700)',
+            background: 'var(--teal-50)',
+            border: '1px solid var(--teal-200)',
+            padding: '0.25rem 0.75rem',
+            borderRadius: 'var(--radius-pill)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: '0.85rem',
+          }}
+        >
+          Verified Customers & Renters
+        </span>
+
+        <h1 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>
+          Customer Account Portal
+        </h1>
+
+        <p
+          className="section-desc"
+          style={{
+            fontSize: '0.975rem',
+            maxWidth: '560px',
+            margin: '0 auto 1.75rem',
+            lineHeight: 1.6,
+          }}
+        >
+          This portal is currently under active development. Direct access via public navigation
+          has been removed and will be accessible via our customer login method.
+        </p>
+
+        <div
+          style={{
+            background: '#f8fafc',
+            border: '1px dashed var(--border-teal-subtle)',
+            borderRadius: 'var(--radius-md)',
+            padding: '1.25rem 1.5rem',
+            maxWidth: '540px',
+            margin: '0 auto 2rem',
+            textAlign: 'left',
+          }}
+        >
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.825rem',
+              fontWeight: 700,
+              color: 'var(--teal-800)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+            }}
+          >
+            🔒 Upcoming Capabilities
+          </p>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: '1.2rem',
+              fontSize: '0.85rem',
+              color: 'var(--text-body)',
+              lineHeight: 1.6,
+            }}
+          >
+            <li>Active rental tracking, live delivery ETA & security deposit refunds</li>
+            <li>Saved shortlist & favorite equipment lists across categories</li>
+            <li>Delivery address book & GST business billing profiles</li>
+            <li>KYC document verification & digital rental agreements</li>
+          </ul>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            gap: '1rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Link href="/login" className="btn btn-primary btn-md">
+            Sign In to Customer Account →
+          </Link>
+          <Link href="/" className="btn btn-secondary btn-md">
+            Return to Marketplace Home
+          </Link>
         </div>
       </div>
     </div>

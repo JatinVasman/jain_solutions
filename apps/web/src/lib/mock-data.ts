@@ -11,6 +11,9 @@ export interface CategoryItem {
   description: string;
   itemCount: number;
   icon: string;
+  descriptor?: string;
+  image?: string;
+  badge?: string;
 }
 
 export interface ProductItem {
@@ -28,6 +31,8 @@ export interface ProductItem {
   ratingCount: number;
   description: string;
   specs: Record<string, string>;
+  image?: string;
+  brand?: string;
   owner: {
     name: string;
     verified: boolean;
@@ -56,7 +61,89 @@ export interface JobItem {
   featured?: boolean;
 }
 
+
+export const HERO_CATEGORIES: CategoryItem[] = [
+  {
+    id: 'cat-cctv',
+    slug: 'cctv-surveillance',
+    name: 'CCTV Cameras & Surveillance',
+    descriptor: '4K IP & PTZ Systems',
+    description: 'Commercial dome & bullet cameras, NVR recording units & 24/7 AI-powered night vision optics',
+    itemCount: 184,
+    icon: '📹',
+    image: '/hero/cctv-cameras.jpg',
+    badge: 'Popular',
+  },
+  {
+    id: 'cat-networking',
+    slug: 'networking-equipment',
+    name: 'Networking Equipment',
+    descriptor: 'PoE+ Managed Switches',
+    description: 'Enterprise rackmount gigabit switches, patch panels, optical SFP+ transceivers & hardware firewalls',
+    itemCount: 240,
+    icon: '🌐',
+    image: '/hero/networking-equipment.jpg',
+    badge: 'Enterprise',
+  },
+  {
+    id: 'cat-routers',
+    slug: 'routers-switches',
+    name: 'Routers & Switches',
+    descriptor: 'Wi-Fi 6 & L3 Core',
+    description: 'High-throughput dual-band Wi-Fi 6 routers, mesh systems & enterprise edge routing gateways',
+    itemCount: 165,
+    icon: '📡',
+    image: '/hero/routers-switches.jpg',
+    badge: 'High Speed',
+  },
+  {
+    id: 'cat-cables',
+    slug: 'cables-connectors',
+    name: 'Cables & Connectors',
+    descriptor: 'Cat6A, Fiber & Patch',
+    description: 'Shielded Cat6/Cat7 ethernet reels, single-mode fiber patch cables & gold-plated RJ45 connectors',
+    itemCount: 320,
+    icon: '🔌',
+    image: '/hero/cables-connectors.jpg',
+    badge: 'Certified',
+  },
+  {
+    id: 'cat-storage',
+    slug: 'storage-devices',
+    name: 'Storage Devices',
+    descriptor: 'NVMe SSDs & NAS RAID',
+    description: 'Ultra-fast PCIe Gen4 NVMe drives, multi-bay enterprise NAS systems & redundant backup arrays',
+    itemCount: 110,
+    icon: '💾',
+    image: '/hero/storage-devices.jpg',
+    badge: 'Ultra Fast',
+  },
+  {
+    id: 'cat-accessories',
+    slug: 'computer-accessories',
+    name: 'Computer Accessories',
+    descriptor: 'Docks, Hubs & Keyboards',
+    description: 'Thunderbolt 4 USB-C multi-display docks, mechanical keyboards, precision mice & ergonomic mounts',
+    itemCount: 280,
+    icon: '🖥️',
+    image: '/hero/computer-accessories.jpg',
+    badge: 'Productivity',
+  },
+  {
+    id: 'cat-power-supplies',
+    slug: 'power-supplies',
+    name: 'Power Supplies & Adapters',
+    descriptor: 'Online UPS & SMPS',
+    description: 'Pure sine wave rackmount UPS systems, industrial surge suppressors & regulated power units',
+    itemCount: 95,
+    icon: '⚡',
+    image: '/hero/power-supplies.jpg',
+    badge: '24/7 Power',
+  },
+];
+
 export const CATEGORIES: CategoryItem[] = [
+  ...HERO_CATEGORIES,
   {
     id: 'cat-power',
     slug: 'power',
@@ -124,6 +211,209 @@ export const CATEGORIES: CategoryItem[] = [
 ];
 
 export const FEATURED_PRODUCTS: ProductItem[] = [
+  {
+    id: 'p-cctv',
+    slug: 'hikvision-4k-ip-surveillance-matrix',
+    name: 'Hikvision 4K Ultra-HD AcuSense IP Turret & NVR System',
+    category: 'CCTV Cameras & Surveillance',
+    categorySlug: 'cctv-surveillance',
+    location: 'Central IT Hub, New Delhi',
+    dailyRate: 750,
+    weeklyRate: 3800,
+    securityDeposit: 6000,
+    availability: 'available',
+    rating: 4.9,
+    ratingCount: 48,
+    image: '/hero/cctv-cameras.jpg',
+    brand: 'Hikvision',
+    description:
+      'Commercial 4K Ultra-HD AcuSense turret camera system with smart human/vehicle motion detection, motorized varifocal lens, and infrared night vision.',
+    specs: {
+      Resolution: '4K Ultra-HD (3840x2160)',
+      Optics: 'Motorized 2.8-12mm Varifocal Lens',
+      'Night Vision': 'IR Range up to 50 Meters',
+      Ingress: 'IP67 Weatherproof & IK10 Vandal-Resistant',
+    },
+    owner: {
+      name: 'Jain Solutions Infrastructure',
+      verified: true,
+      rating: 4.9,
+    },
+  },
+  {
+    id: 'p-net',
+    slug: 'cisco-catalyst-48-port-poe-managed-switch',
+    name: 'Cisco Catalyst 48-Port Gigabit PoE+ Managed Switch',
+    category: 'Networking Equipment',
+    categorySlug: 'networking-equipment',
+    location: 'Bandra Kurla Complex, Mumbai',
+    dailyRate: 1600,
+    weeklyRate: 8500,
+    securityDeposit: 12000,
+    availability: 'available',
+    rating: 5.0,
+    ratingCount: 62,
+    image: '/hero/networking-equipment.jpg',
+    brand: 'Cisco',
+    description:
+      'Enterprise-grade Layer 3 managed network switch with 48 gigabit PoE+ ports (740W power budget) and 4x 10G SFP+ uplink ports.',
+    specs: {
+      Ports: '48x Gigabit RJ45 + 4x 10G SFP+',
+      'PoE Budget': '740 Watts PoE+ (802.3at)',
+      Switching: '176 Gbps Non-Blocking Fabric',
+      Management: 'Cisco IOS-XE / Web GUI / CLI',
+    },
+    owner: {
+      name: 'Jain Solutions Enterprise Network',
+      verified: true,
+      rating: 5.0,
+    },
+  },
+  {
+    id: 'p-router',
+    slug: 'tp-link-archer-ax6000-enterprise-router',
+    name: 'TP-Link Archer AX6000 Wi-Fi 6 Multi-Gigabit Router',
+    category: 'Routers & Switches',
+    categorySlug: 'routers-switches',
+    location: 'HITEC City, Hyderabad',
+    dailyRate: 650,
+    weeklyRate: 3400,
+    securityDeposit: 5000,
+    availability: 'available',
+    rating: 4.8,
+    ratingCount: 39,
+    image: '/hero/routers-switches.jpg',
+    brand: 'TP-Link',
+    description:
+      'Ultra-fast Wi-Fi 6 router delivering up to 6 Gbps wireless bandwidth, 2.5 Gbps WAN port, and 8 high-gain antennas with beamforming.',
+    specs: {
+      Speed: 'Up to 5952 Mbps (4804 Mbps 5GHz + 1148 Mbps 2.4GHz)',
+      WAN: '1x 2.5 Gbps Multi-Gigabit Port',
+      LAN: '8x Gigabit Ethernet LAN Ports',
+      CPU: '1.8 GHz 64-bit Quad-Core Processor',
+    },
+    owner: {
+      name: 'Jain Solutions Tech Hub',
+      verified: true,
+      rating: 4.8,
+    },
+  },
+  {
+    id: 'p-storage',
+    slug: 'synology-4-bay-nas-nvme-raid',
+    name: 'Synology DiskStation 4-Bay NAS with 4x 8TB Enterprise RAID',
+    category: 'Storage Devices',
+    categorySlug: 'storage-devices',
+    location: 'Indiranagar, Bengaluru',
+    dailyRate: 1900,
+    weeklyRate: 9800,
+    securityDeposit: 15000,
+    availability: 'available',
+    rating: 4.9,
+    ratingCount: 31,
+    image: '/hero/storage-devices.jpg',
+    brand: 'Synology',
+    description:
+      'High-performance 4-bay rackmount network attached storage populated with enterprise Seagate IronWolf drives and dual M.2 NVMe SSD caching.',
+    specs: {
+      Capacity: '32TB Raw (RAID 5 / 6 Configurable)',
+      Cache: '2x 1TB Samsung 990 PRO NVMe SSD',
+      Network: 'Dual 1GbE with Link Aggregation',
+      Memory: '16GB DDR4 ECC RAM',
+    },
+    owner: {
+      name: 'Jain Solutions Storage Depot',
+      verified: true,
+      rating: 4.9,
+    },
+  },
+  {
+    id: 'p-cables',
+    slug: 'commscope-cat6a-shielded-305m-cable-bundle',
+    name: 'CommScope Cat6A Shielded LSZH Reel (305m) & Tool Kit',
+    category: 'Cables & Connectors',
+    categorySlug: 'cables-connectors',
+    location: 'Okhla Phase III, New Delhi',
+    dailyRate: 400,
+    weeklyRate: 2100,
+    securityDeposit: 3000,
+    availability: 'available',
+    rating: 4.9,
+    ratingCount: 54,
+    image: '/hero/cables-connectors.jpg',
+    brand: 'D-Link',
+    description:
+      'Pure copper shielded Cat6A cable reel tested to 500MHz. Includes 50x shielded toolless RJ45 connectors, crimper, and cable verifier.',
+    specs: {
+      Length: '305 Meters (1000 ft) Pull Box',
+      Conductor: '23 AWG Solid Bare Copper',
+      Jacket: 'Low Smoke Zero Halogen (LSZH)',
+      Standard: 'ANSI/TIA-568.2-D Cat6A Compliant',
+    },
+    owner: {
+      name: 'Jain Solutions Cabling Services',
+      verified: true,
+      rating: 4.9,
+    },
+  },
+  {
+    id: 'p-power',
+    slug: 'apc-smart-ups-3000va-rackmount',
+    name: 'APC Smart-UPS 3000VA LCD Pure Sine Wave 230V',
+    category: 'Power Supplies & Adapters',
+    categorySlug: 'power-supplies',
+    location: 'Salt Lake Sector V, Kolkata',
+    dailyRate: 1400,
+    weeklyRate: 7200,
+    securityDeposit: 10000,
+    availability: 'available',
+    rating: 5.0,
+    ratingCount: 42,
+    image: '/hero/power-supplies.jpg',
+    brand: 'Schneider Electric',
+    description:
+      'Rackmount 3000VA / 2700W online uninterruptible power supply providing clean sine wave backup power for mission-critical IT infrastructure.',
+    specs: {
+      Output: '3000 VA / 2700 Watts Pure Sine Wave',
+      Topology: 'Line-Interactive / Double Conversion',
+      Outlets: '8x IEC 320 C13, 1x IEC 320 C19',
+      Runtime: 'Approx. 28 min at half load (1350W)',
+    },
+    owner: {
+      name: 'Apex Power Solutions',
+      verified: true,
+      rating: 5.0,
+    },
+  },
+  {
+    id: 'p-acc',
+    slug: 'dell-thunderbolt-4-quad-dock-bundle',
+    name: 'Dell Thunderbolt 4 Dock & Ergonomic Peripheral Suite',
+    category: 'Computer Accessories',
+    categorySlug: 'computer-accessories',
+    location: 'Shivajinagar, Pune',
+    dailyRate: 450,
+    weeklyRate: 2400,
+    securityDeposit: 4000,
+    availability: 'available',
+    rating: 4.8,
+    ratingCount: 26,
+    image: '/hero/computer-accessories.jpg',
+    brand: 'Dell Technologies',
+    description:
+      'Enterprise workstation setup: Thunderbolt 4 dock delivering 130W Power Delivery with dual 4K/60Hz display support, low-profile keyboard and wireless precision mouse.',
+    specs: {
+      Dock: 'Thunderbolt 4 / 3x USB-A 3.2 / 2x DP 1.4 / 1x HDMI 2.0',
+      Power: 'Up to 130W Power Delivery to Laptop',
+      Peripherals: 'Aluminum Slim Keyboard & Dual-Mode Laser Mouse',
+      Compatibility: 'Windows, macOS, Linux, Ubuntu',
+    },
+    owner: {
+      name: 'Jain Solutions IT Depot',
+      verified: true,
+      rating: 4.8,
+    },
+  },
   {
     id: 'p-1',
     slug: 'pure-sine-wave-inverter-5kva',

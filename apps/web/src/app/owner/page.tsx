@@ -3,101 +3,135 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Owner Overview | Product Owner Portal',
+  title: 'Product Owner Portal | Jain Solutions',
+  description: 'Asset and equipment management workspace for verified product owners.',
 };
 
-export default function OwnerOverviewPage() {
+export default function OwnerPortalPage() {
   return (
-    <div>
-      <div className="portal-header">
-        <div>
-          <h1 className="portal-title">Owner Operations Overview</h1>
-          <p className="portal-subtitle">
-            Monitor asset utilization, upcoming dispatches, and rental earnings yield.
-          </p>
-        </div>
-        <Link href="/owner/products/new" className="btn btn-primary btn-sm">
-          + Add New Equipment
+    <div className="page-container" style={{ maxWidth: '820px', padding: '3rem 1.5rem 5rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <Link href="/" style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+          ← Back to Marketplace
         </Link>
       </div>
 
-      <div className="stat-grid">
-        <div className="stat-card">
-          <div className="stat-card-label">Total Listed Assets</div>
-          <div className="stat-card-value">12</div>
-          <div className="stat-card-trend">● Across 3 Categories</div>
+      <div
+        className="card"
+        style={{
+          padding: '2.5rem',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-md)',
+          border: '1px solid var(--border-light)',
+          background: '#ffffff',
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            background: 'var(--teal-50)',
+            border: '2px solid var(--teal-200)',
+            fontSize: '2rem',
+            marginBottom: '1.25rem',
+          }}
+        >
+          📦
         </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Active Units on Rent</div>
-          <div className="stat-card-value">8 / 14</div>
-          <div className="stat-card-trend">57% Fleet Utilization</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Pending Rental Requests</div>
-          <div className="stat-card-value">3</div>
-          <div className="stat-card-trend">Awaiting Owner Confirmation</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-label">Net Monthly Yield</div>
-          <div className="stat-card-value">₹1,42,800</div>
-          <div className="stat-card-trend">+14% vs Last Month</div>
-        </div>
-      </div>
 
-      {/* Pending Requests Section */}
-      <div style={{ marginBottom: '2.5rem' }}>
-        <h2 style={{ fontSize: '1.25rem', color: 'var(--text-title)', marginBottom: '1rem' }}>
-          Pending Rental Authorizations
-        </h2>
-        <div className="table-container">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Request ID</th>
-                <th>Equipment Unit</th>
-                <th>Requested Tenure</th>
-                <th>Customer / Site</th>
-                <th>Projected Net</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#REQ-9921</td>
-                <td>5 kVA Pure Sine Wave Inverter System</td>
-                <td>12 Oct – 20 Oct 2026 (8 Days)</td>
-                <td>Skyline Media &bull; New Delhi Hub</td>
-                <td style={{ fontWeight: 600, color: 'var(--status-green)' }}>₹8,640</td>
-                <td>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button type="button" className="btn btn-primary btn-sm">
-                      Approve
-                    </button>
-                    <button type="button" className="btn btn-outline btn-sm">
-                      Decline
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ fontWeight: 600 }}>#REQ-9918</td>
-                <td>Honda EU70is 7kVA Silent Generator</td>
-                <td>14 Oct – 17 Oct 2026 (3 Days)</td>
-                <td>Apex Events &bull; Noida Sector 62</td>
-                <td style={{ fontWeight: 600, color: 'var(--status-green)' }}>₹5,940</td>
-                <td>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button type="button" className="btn btn-primary btn-sm">
-                      Approve
-                    </button>
-                    <button type="button" className="btn btn-outline btn-sm">
-                      Decline
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <span
+          style={{
+            display: 'inline-block',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: 'var(--teal-700)',
+            background: 'var(--teal-50)',
+            border: '1px solid var(--teal-200)',
+            padding: '0.25rem 0.75rem',
+            borderRadius: 'var(--radius-pill)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: '0.85rem',
+          }}
+        >
+          Suppliers & Fleet Hosts
+        </span>
+
+        <h1 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>
+          Product Owner Portal
+        </h1>
+
+        <p
+          className="section-desc"
+          style={{
+            fontSize: '0.975rem',
+            maxWidth: '560px',
+            margin: '0 auto 1.75rem',
+            lineHeight: 1.6,
+          }}
+        >
+          This portal is currently under active development. Management of rental fleets, assets,
+          and earnings will be unlocked once you log in with your verified owner account.
+        </p>
+
+        <div
+          style={{
+            background: '#f8fafc',
+            border: '1px dashed var(--border-teal-subtle)',
+            borderRadius: 'var(--radius-md)',
+            padding: '1.25rem 1.5rem',
+            maxWidth: '540px',
+            margin: '0 auto 2rem',
+            textAlign: 'left',
+          }}
+        >
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.825rem',
+              fontWeight: 700,
+              color: 'var(--teal-800)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+            }}
+          >
+            🔒 Upcoming Capabilities
+          </p>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: '1.2rem',
+              fontSize: '0.85rem',
+              color: 'var(--text-body)',
+              lineHeight: 1.6,
+            }}
+          >
+            <li>Equipment inventory registration & rate configuration</li>
+            <li>Real-time booking calendar and dispatch confirmation</li>
+            <li>Rental earnings tracking & automated bank payouts</li>
+            <li>Asset health, service logs, and maintenance alerts</li>
+          </ul>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            gap: '1rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Link href="/login" className="btn btn-primary btn-md">
+            Sign In to Owner Account →
+          </Link>
+          <Link href="/" className="btn btn-secondary btn-md">
+            Return to Marketplace Home
+          </Link>
         </div>
       </div>
     </div>

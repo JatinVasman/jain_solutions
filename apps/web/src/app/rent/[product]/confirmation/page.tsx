@@ -112,8 +112,8 @@ export default function ConfirmationPage({ params }: ConfirmationProps) {
             flexWrap: 'wrap',
           }}
         >
-          <Link href="/account/rentals" className="btn btn-primary">
-            View in My Rentals (/account/rentals)
+          <Link href="/account" className="btn btn-primary">
+            View in Customer Account (/account)
           </Link>
           <Link href="/products" className="btn btn-secondary">
             Browse More Equipment

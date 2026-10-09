@@ -1,93 +1,18 @@
 import React from 'react';
-import Link from 'next/link';
-import { SearchBar } from '../components/SearchBar';
-import { CategoryCard } from '../components/CategoryCard';
+import { PromoBanner } from '../components/PromoBanner';
+import { ProductGrid } from '../components/ProductGrid';
 import { ProductCard } from '../components/ProductCard';
 import { LocationSelector } from '../components/LocationSelector';
-import { CATEGORIES, FEATURED_PRODUCTS } from '../lib/mock-data';
+import { FEATURED_PRODUCTS } from '../lib/mock-data';
 
 export default function HomePage() {
   return (
     <div>
-      {/* 1. Main Hero */}
-      <section className="hero-section">
-        <div className="page-container">
-          <div className="hero-badge">
-            <span>✨</span>
-            <span>Jain Solutions</span>
-          </div>
+      {/* Promotional Carousel */}
+      <PromoBanner />
 
-          <h1 className="hero-title">
-            One stop for <br />
-            <span style={{ color: 'var(--accent-primary)' }}>all your needs.</span>
-          </h1>
-
-          <p className="hero-subtitle">
-            Find and rent professional equipment on demand across power backup, audiovisual gear,
-            vehicles, heavy machinery, power tools, and office systems.
-          </p>
-
-          <div className="hero-search-wrapper">
-            <SearchBar />
-            <div className="hero-search-suggestions" style={{ marginTop: '1rem' }}>
-              <span>Popular searches:</span>
-              <Link href="/search?q=Inverter" className="suggestion-pill">
-                Inverters & UPS
-              </Link>
-              <Link href="/search?q=Camera" className="suggestion-pill">
-                Cinema Cameras
-              </Link>
-              <Link href="/search?q=Projector" className="suggestion-pill">
-                4K Projectors
-              </Link>
-              <Link href="/search?q=Generator" className="suggestion-pill">
-                Silent Generators
-              </Link>
-              <Link href="/search?q=Tools" className="suggestion-pill">
-                Power Tools
-              </Link>
-              <Link href="/search?q=Vehicles" className="suggestion-pill">
-                Cargo Pickups
-              </Link>
-            </div>
-          </div>
-
-          <div className="hero-cta-group">
-            <Link href="/categories" className="btn btn-primary btn-lg">
-              Browse All Categories
-            </Link>
-            <Link href="#how-it-works" className="btn btn-secondary btn-lg">
-              How It Works
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Major Categories */}
-      <section className="section-block">
-        <div className="page-container">
-          <div className="section-header text-center">
-            <span className="section-tag">Expansive Catalogue</span>
-            <h2 className="section-title">Explore by Equipment Category</h2>
-            <p className="section-desc">
-              From power infrastructure to industrial plant hire, discover verified inventory
-              available for immediate booking.
-            </p>
-          </div>
-
-          <div className="category-grid">
-            {CATEGORIES.map((category) => (
-              <CategoryCard key={category.id} category={category} />
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <Link href="/categories" className="btn btn-outline">
-              View All 8+ Categories & Sub-Classifications →
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Product & Category Browsing Grid */}
+      <ProductGrid />
 
       {/* 3. User Type Entry Point: "I am..." */}
       <section
@@ -109,56 +34,56 @@ export default function HomePage() {
           </div>
 
           <div className="user-entry-grid">
-            <Link href="/products" className="user-entry-card">
+            <a href="#featured-equipment" className="user-entry-card">
               <div className="user-entry-icon">🛒</div>
               <h3 className="user-entry-title">Customer</h3>
               <p className="user-entry-desc">
                 Rent verified equipment with doorstep delivery & flexible tenure.
               </p>
               <span className="btn btn-outline btn-sm">Browse Rentals →</span>
-            </Link>
+            </a>
 
-            <Link href="/owner" className="user-entry-card">
+            <a href="#how-it-works" className="user-entry-card">
               <div className="user-entry-icon">🏢</div>
               <h3 className="user-entry-title">Product Owner</h3>
               <p className="user-entry-desc">
                 List idle tools, fleet, or machinery and earn monthly yields.
               </p>
-              <span className="btn btn-outline btn-sm">Owner Portal →</span>
-            </Link>
+              <span className="btn btn-outline btn-sm">Owner Info →</span>
+            </a>
 
-            <Link href="/partner" className="user-entry-card">
+            <a href="#how-it-works" className="user-entry-card">
               <div className="user-entry-icon">🤝</div>
               <h3 className="user-entry-title">Business Partner</h3>
               <p className="user-entry-desc">
                 Refer commercial clients and earn recurring commissions.
               </p>
-              <span className="btn btn-outline btn-sm">Partner Program →</span>
-            </Link>
+              <span className="btn btn-outline btn-sm">Partner Info →</span>
+            </a>
 
-            <Link href="/freelancer" className="user-entry-card">
+            <a href="#how-it-works" className="user-entry-card">
               <div className="user-entry-icon">⚡</div>
               <h3 className="user-entry-title">Freelance Tech</h3>
               <p className="user-entry-desc">
                 Earn on equipment setup, site inspections, and logistics tasks.
               </p>
-              <span className="btn btn-outline btn-sm">Find Tasks →</span>
-            </Link>
+              <span className="btn btn-outline btn-sm">Tech Network →</span>
+            </a>
 
-            <Link href="/jobs" className="user-entry-card">
+            <a href="#how-it-works" className="user-entry-card">
               <div className="user-entry-icon">💼</div>
               <h3 className="user-entry-title">Job Seeker</h3>
               <p className="user-entry-desc">
                 Join our fast-growing logistics and operations teams.
               </p>
-              <span className="btn btn-outline btn-sm">View Careers →</span>
-            </Link>
+              <span className="btn btn-outline btn-sm">Learn More →</span>
+            </a>
           </div>
         </div>
       </section>
 
       {/* 4. Popular / Featured Rentals */}
-      <section className="section-block">
+      <section id="featured-equipment" className="section-block">
         <div className="page-container">
           <div
             className="section-header"
@@ -177,9 +102,9 @@ export default function HomePage() {
                 Sample structural items available across regional fulfillment hubs.
               </p>
             </div>
-            <Link href="/products" className="btn btn-secondary btn-sm">
+            <a href="#featured-equipment" className="btn btn-secondary btn-sm">
               View All 1,200+ Products →
-            </Link>
+            </a>
           </div>
 
           <div className="product-grid">
@@ -440,9 +365,9 @@ export default function HomePage() {
           <LocationSelector />
 
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Link href="/locations" className="btn btn-outline btn-sm">
+            <a href="#featured-equipment" className="btn btn-outline btn-sm">
               Browse All Regional Offices & Pickup Points →
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -452,8 +377,8 @@ export default function HomePage() {
         <div className="page-container">
           <div
             style={{
-              background: 'linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%)',
-              border: '1px solid #99f6e4',
+              background: 'linear-gradient(135deg, #f0f7ff 0%, #e0effe 100%)',
+              border: '1px solid #bfdbfe',
               borderRadius: 'var(--radius-lg)',
               padding: '3.5rem 2rem',
               textAlign: 'center',
@@ -484,12 +409,12 @@ export default function HomePage() {
             <div
               style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}
             >
-              <Link href="/owner" className="btn btn-primary btn-lg">
+              <a href="#featured-equipment" className="btn btn-primary btn-lg">
                 Become a Product Owner
-              </Link>
-              <Link href="/partner" className="btn btn-secondary btn-lg">
+              </a>
+              <a href="#how-it-works" className="btn btn-secondary btn-lg">
                 Join Referral Partner Network
-              </Link>
+              </a>
             </div>
           </div>
         </div>
