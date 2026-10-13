@@ -12,15 +12,27 @@ function CategoriesFilterContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // Read initial category from query parameter (?category=... or ?cat=...)
+  // Read initial category and search query from URL parameters
   const initialCategory = searchParams.get('category') || searchParams.get('cat') || 'all';
+  const initialQuery = searchParams.get('q') || searchParams.get('search') || '';
 
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(25000);
   const [sortBy, setSortBy] = useState<string>('popular');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>(initialQuery);
+
+  // Sync state when URL params change (e.g. from navbar search)
+  React.useEffect(() => {
+    const q = searchParams.get('q') || searchParams.get('search') || '';
+    setSearchQuery(q);
+  }, [searchParams]);
+
+  React.useEffect(() => {
+    const cat = searchParams.get('category') || searchParams.get('cat') || 'all';
+    setSelectedCategory(cat);
+  }, [searchParams]);
 
   const currentCategoryObj = useMemo(() => {
     if (selectedCategory === 'all') return null;
@@ -29,11 +41,25 @@ function CategoriesFilterContent() {
 
   const handleCategorySelect = (slug: string) => {
     setSelectedCategory(slug);
+    const params = new URLSearchParams(searchParams.toString());
     if (slug === 'all') {
-      router.push('/categories', { scroll: false });
+      params.delete('category');
+      params.delete('cat');
     } else {
-      router.push(`/categories?category=${slug}`, { scroll: false });
+      params.set('category', slug);
+      params.delete('cat');
     }
+    const newUrl = params.toString() ? `/categories?${params.toString()}` : '/categories';
+    router.push(newUrl, { scroll: false });
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('q');
+    params.delete('search');
+    const newUrl = params.toString() ? `/categories?${params.toString()}` : '/categories';
+    router.push(newUrl, { scroll: false });
   };
 
   const handleReset = () => {
@@ -191,6 +217,18 @@ function CategoriesFilterContent() {
                   </button>
                 </span>
               )}
+              {searchQuery && (
+                <span className="catalog-active-filter-badge">
+                  Search: &ldquo;{searchQuery}&rdquo;
+                  <button
+                    type="button"
+                    onClick={handleClearSearch}
+                    aria-label="Remove search filter"
+                  >
+                    ✕
+                  </button>
+                </span>
+              )}
             </div>
 
             {/* In-Grid Search */}
@@ -219,8 +257,9 @@ function CategoriesFilterContent() {
               {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => setSearchQuery('')}
+                  onClick={handleClearSearch}
                   style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}
+                  aria-label="Clear search input"
                 >
                   ✕
                 </button>

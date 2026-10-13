@@ -5,34 +5,34 @@ import Link from 'next/link';
 
 type HeroSlideType =
   | {
-      type: 'one-stop';
-      id: string;
-      image: string;
-      headline: string;
-      ariaLabel: string;
-    }
+    type: 'one-stop';
+    id: string;
+    image: string;
+    headline: string;
+    ariaLabel: string;
+  }
   | {
-      type: 'original';
-      id: string;
-      image: string;
-      eyebrow: string;
-      headline: string;
-      sub: string;
-      cta: string;
-      ctaHref: string;
-      accentBg: string;
-      accentColor: string;
-      ariaLabel: string;
-    }
+    type: 'original';
+    id: string;
+    image: string;
+    eyebrow: string;
+    headline: string;
+    sub: string;
+    cta: string;
+    ctaHref: string;
+    accentBg: string;
+    accentColor: string;
+    ariaLabel: string;
+  }
   | {
-      type: 'contact';
-      id: string;
-      image: string;
-      headline: string;
-      cta: string;
-      ctaHref: string;
-      ariaLabel: string;
-    };
+    type: 'contact';
+    id: string;
+    image: string;
+    headline: string;
+    cta: string;
+    ctaHref: string;
+    ariaLabel: string;
+  };
 
 const HERO_SLIDES: HeroSlideType[] = [
   /* 1. FIRST SLIDE: "One stop for all your needs" */
@@ -103,7 +103,7 @@ const HERO_SLIDES: HeroSlideType[] = [
   {
     type: 'contact',
     id: 'slide-contact',
-    image: '/hero/hero-custom-request.jpg',
+    image: '/hero/jain-hero-product-search.webp',
     headline: "Couldn't find what you're looking for?",
     cta: 'Contact Us →',
     ctaHref: '/contact',

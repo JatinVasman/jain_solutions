@@ -1,14 +1,25 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { FEATURED_PRODUCTS } from '../lib/mock-data';
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Search state
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,23 +29,74 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on Escape key
+  // Close search dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node)
+      ) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close mobile menu / search on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMobileMenuOpen(false);
+        setIsSearchOpen(false);
+        setShowMobileSearch(false);
       }
     };
-    if (mobileMenuOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Instant live search autocomplete
+  const liveResults = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    if (!query) return [];
+    return FEATURED_PRODUCTS.filter(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        p.category.toLowerCase().includes(query) ||
+        (p.brand && p.brand.toLowerCase().includes(query)) ||
+        p.description.toLowerCase().includes(query)
+    ).slice(0, 5);
+  }, [searchTerm]);
+
+  const handleSearchSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setIsSearchOpen(false);
+    setShowMobileSearch(false);
+    setMobileMenuOpen(false);
+    if (searchTerm.trim()) {
+      router.push(`/categories?q=${encodeURIComponent(searchTerm.trim())}`);
+    } else {
+      router.push('/categories');
     }
-  }, [mobileMenuOpen]);
+  };
+
+  const handleSelectProduct = (slug: string) => {
+    setIsSearchOpen(false);
+    setShowMobileSearch(false);
+    setMobileMenuOpen(false);
+    router.push(`/products/${slug}`);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    searchInputRef.current?.focus();
+  };
 
   return (
     <header className={`site-header ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="header-inner">
-        {/* ZONE 1: LEFT NAVIGATION (Name links kept, unlinked for now, only Home active) */}
+        {/* ZONE 1: LEFT NAVIGATION */}
         <nav className="nav-left-zone" aria-label="Primary Navigation">
           <ul className="nav-links">
             <li>
@@ -63,7 +125,7 @@ export const Header: React.FC = () => {
           </ul>
         </nav>
 
-        {/* ZONE 2: CENTER LOGO (Mathematically centered via 1fr auto 1fr grid) */}
+        {/* ZONE 2: CENTER LOGO */}
         <div className="nav-center-zone">
           <Link href="/" className="nav-center-logo" aria-label="Jain Solutions Home">
             <Image
@@ -78,31 +140,130 @@ export const Header: React.FC = () => {
           </Link>
         </div>
 
-        {/* ZONE 3: RIGHT ACTIONS (Name links kept, unlinked for now) */}
+        {/* ZONE 3: RIGHT ACTIONS */}
         <div className="nav-right-zone">
-          {/* Compact search trigger */}
-          <a
-            href="#search"
-            onClick={(e) => e.preventDefault()}
-            className="nav-search-trigger nav-link-unlinked"
-            aria-label="Search rental equipment"
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+          {/* Functional Search Bar */}
+          <div className="nav-search-container" ref={searchContainerRef}>
+            <form
+              className="nav-search-form"
+              role="search"
+              onSubmit={handleSearchSubmit}
             >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <span>Search</span>
-          </a>
+              <div className="nav-search-bar">
+                <button
+                  type="submit"
+                  className="nav-search-icon-btn"
+                  aria-label="Submit search"
+                >
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </button>
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search equipment..."
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setIsSearchOpen(true);
+                  }}
+                  onFocus={() => {
+                    if (searchTerm.trim()) setIsSearchOpen(true);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      setIsSearchOpen(false);
+                    }
+                  }}
+                  className="nav-search-input"
+                  aria-label="Search rental equipment"
+                  autoComplete="off"
+                />
+                {searchTerm && (
+                  <button
+                    type="button"
+                    className="nav-search-clear-btn"
+                    onClick={handleClearSearch}
+                    aria-label="Clear search text"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </form>
+
+            {/* Live Autocomplete Results Dropdown */}
+            {isSearchOpen && searchTerm.trim() && (
+              <div className="nav-search-dropdown" role="listbox">
+                {liveResults.length > 0 ? (
+                  <>
+                    <div className="nav-search-dropdown-header">
+                      <span>Matching Equipment</span>
+                      <span className="nav-search-badge">{liveResults.length} found</span>
+                    </div>
+                    <ul className="nav-search-results-list">
+                      {liveResults.map((product) => (
+                        <li key={product.id}>
+                          <button
+                            type="button"
+                            className="nav-search-result-item"
+                            onClick={() => handleSelectProduct(product.slug || product.id)}
+                          >
+                            <img
+                              src={product.image || '/hero/cctv-cameras.jpg'}
+                              alt=""
+                              className="nav-search-result-img"
+                            />
+                            <div className="nav-search-result-info">
+                              <div className="nav-search-result-name">{product.name}</div>
+                              <div className="nav-search-result-meta">
+                                <span className="nav-search-result-cat">{product.category}</span>
+                                <span className="nav-search-result-price">
+                                  ₹{product.dailyRate.toLocaleString()}/day
+                                </span>
+                              </div>
+                            </div>
+                            <span className="nav-search-result-arrow" aria-hidden="true">→</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      type="button"
+                      className="nav-search-dropdown-footer"
+                      onClick={() => handleSearchSubmit()}
+                    >
+                      <span>View all results for &ldquo;{searchTerm}&rdquo;</span>
+                      <span>Explore Categories →</span>
+                    </button>
+                  </>
+                ) : (
+                  <div className="nav-search-no-results">
+                    <p>No equipment matching &ldquo;{searchTerm}&rdquo;</p>
+                    <button
+                      type="button"
+                      className="nav-search-view-all-btn"
+                      onClick={() => handleSearchSubmit()}
+                    >
+                      Search entire catalog →
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* Sign In link */}
           <a
@@ -114,20 +275,25 @@ export const Header: React.FC = () => {
           </a>
 
           {/* Primary CTA */}
-          <a
-            href="#find-equipment"
-            onClick={(e) => e.preventDefault()}
-            className="nav-cta-btn btn btn-primary btn-sm nav-link-unlinked"
+          <Link
+            href="/categories"
+            className="nav-cta-btn btn btn-primary btn-sm"
           >
             <span>Find Equipment</span>
-          </a>
+          </Link>
         </div>
 
         {/* MOBILE CONTROLS (Rendered for viewports <= 768px) */}
         <div className="nav-mobile-actions">
-          <a
-            href="#search"
-            onClick={(e) => e.preventDefault()}
+          <button
+            type="button"
+            onClick={() => {
+              const nextState = !showMobileSearch;
+              setShowMobileSearch(nextState);
+              if (nextState) {
+                setTimeout(() => mobileSearchInputRef.current?.focus(), 100);
+              }
+            }}
             className="nav-mobile-search-btn"
             aria-label="Search equipment"
           >
@@ -145,7 +311,7 @@ export const Header: React.FC = () => {
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-          </a>
+          </button>
           <button
             type="button"
             className="nav-mobile-toggle-btn"
@@ -188,7 +354,34 @@ export const Header: React.FC = () => {
           </button>
         </div>
 
-        {/* MOBILE DROPDOWN DRAWER (Names kept, unlinked except Home) */}
+        {/* MOBILE SEARCH BANNER (When mobile search icon is toggled) */}
+        {showMobileSearch && (
+          <div className="nav-mobile-search-banner">
+            <form onSubmit={handleSearchSubmit} className="nav-mobile-search-form">
+              <input
+                ref={mobileSearchInputRef}
+                type="search"
+                placeholder="Search equipment, cameras, switches..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="nav-mobile-search-input"
+              />
+              <button type="submit" className="btn btn-primary btn-sm">
+                Search
+              </button>
+              <button
+                type="button"
+                className="nav-mobile-search-close"
+                onClick={() => setShowMobileSearch(false)}
+                aria-label="Close search"
+              >
+                ✕
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* MOBILE DROPDOWN DRAWER */}
         {mobileMenuOpen && (
           <div className="nav-mobile-dropdown" role="dialog" aria-modal="true">
             <div className="nav-mobile-links">
@@ -241,30 +434,37 @@ export const Header: React.FC = () => {
             <div className="nav-mobile-divider" />
 
             <div className="nav-mobile-actions-list">
-              <a
-                href="#search"
-                className="btn btn-secondary nav-mobile-action-btn nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
+              <form
+                className="nav-mobile-drawer-search-form"
+                onSubmit={handleSearchSubmit}
               >
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-                <span>Search Equipment</span>
-              </a>
+                <div className="nav-mobile-drawer-search-wrap">
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input
+                    type="search"
+                    placeholder="Search equipment..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="nav-mobile-drawer-input"
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary btn-sm">
+                  Search
+                </button>
+              </form>
 
               <a
                 href="#signin"
@@ -277,17 +477,14 @@ export const Header: React.FC = () => {
                 <span>Sign In</span>
               </a>
 
-              <a
-                href="#find-equipment"
-                className="btn btn-primary nav-mobile-action-btn nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
+              <Link
+                href="/categories"
+                className="btn btn-primary nav-mobile-action-btn"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Find Equipment</span>
                 <span>→</span>
-              </a>
+              </Link>
             </div>
           </div>
         )}
