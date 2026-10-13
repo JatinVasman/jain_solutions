@@ -55,3 +55,7 @@ apps/api/uploads/
 
 # Misc
 *.pem
+
+# Test / Browser Automation Artifacts
+.playwright-mcp/
+/*.png

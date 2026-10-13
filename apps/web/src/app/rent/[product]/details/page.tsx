@@ -82,7 +82,7 @@ export default function RentalDetailsPage({ params }: RentalDetailsProps) {
             <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-title)' }}>
               {item.name}
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>📍 {item.location}</p>
+            <p style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 500 }}>✓ Verified Equipment &bull; Ready for Rental</p>
           </div>
           <div style={{ textAlign: 'right' }}>
             <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-title)' }}>
@@ -132,7 +132,7 @@ export default function RentalDetailsPage({ params }: RentalDetailsProps) {
                       marginTop: '0.25rem',
                     }}
                   >
-                    Scheduled transit directly to your workplace or project site via hub logistics.
+                    Scheduled express delivery directly to your workplace or installation site with tracked transit.
                   </p>
                 </div>
               </label>
@@ -151,7 +151,7 @@ export default function RentalDetailsPage({ params }: RentalDetailsProps) {
                 <input type="radio" name="delivery_method" />
                 <div>
                   <strong style={{ color: 'var(--text-title)' }}>
-                    Self-Pickup from Regional Hub (Free)
+                    Self-Pickup from Local Service Center (Free)
                   </strong>
                   <p
                     style={{
@@ -160,8 +160,7 @@ export default function RentalDetailsPage({ params }: RentalDetailsProps) {
                       marginTop: '0.25rem',
                     }}
                   >
-                    Collect directly from {item.location}. Instant condition inspection
-                    verification.
+                    Collect directly from our verified service branch with instant on-site equipment inspection.
                   </p>
                 </div>
               </label>

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Breadcrumb } from '../../../components/Breadcrumb';
+import { ProductGallery } from '../../../components/ProductGallery';
 import { FEATURED_PRODUCTS } from '../../../lib/mock-data';
 
 interface ProductDetailPageProps {
@@ -14,7 +15,7 @@ interface ProductDetailPageProps {
 export function generateMetadata({ params }: ProductDetailPageProps): Metadata {
   const item = FEATURED_PRODUCTS.find((p) => p.slug === params.product);
   return {
-    title: item ? item.name : 'Product Details',
+    title: item ? `${item.name} — Jain Solutions` : 'Product Details',
     description: item ? item.description : 'Equipment rental specifications and rates',
   };
 }
@@ -25,11 +26,18 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
     notFound();
   }
 
+  const galleryImages =
+    item.galleryImages && item.galleryImages.length > 0
+      ? item.galleryImages
+      : item.image
+        ? [item.image]
+        : ['/hero/hero-bg.jpg'];
+
   return (
     <div className="page-container">
       <Breadcrumb
         items={[
-          { label: 'Catalogue', href: '/products' },
+          { label: 'Categories', href: '/categories' },
           { label: item.category, href: `/categories/${item.categorySlug}` },
           { label: item.name },
         ]}
@@ -45,45 +53,12 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       >
         {/* Main Column */}
         <div>
-          {/* Images Gallery Placeholder */}
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-light)',
-              borderRadius: 'var(--radius-lg)',
-              height: '380px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '1rem',
-              color: 'var(--text-dim)',
-              fontSize: '1rem',
-            }}
-          >
-            [ High-Resolution Equipment Image Gallery Placeholder ]
-          </div>
-
-          <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '2rem' }}>
-            {['Front View', 'Panel Controls', 'Accessory Kit', 'Packaging'].map((thumb, i) => (
-              <div
-                key={i}
-                style={{
-                  width: '90px',
-                  height: '70px',
-                  background: 'var(--bg-surface)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: 'var(--radius-md)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '0.75rem',
-                  color: 'var(--text-dim)',
-                  cursor: 'pointer',
-                }}
-              >
-                {thumb}
-              </div>
-            ))}
+          {/* Authentic Interactive Product Gallery */}
+          <div style={{ marginBottom: '2rem' }}>
+            <ProductGallery
+              images={galleryImages}
+              productName={item.name}
+            />
           </div>
 
           {/* Description */}
@@ -102,6 +77,49 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               {item.description}
             </p>
           </div>
+
+          {/* Key Highlights */}
+          {item.highlights && item.highlights.length > 0 && (
+            <div style={{ marginBottom: '2.5rem' }}>
+              <h3
+                style={{
+                  fontSize: '1.2rem',
+                  fontWeight: 600,
+                  color: 'var(--text-title)',
+                  marginBottom: '0.85rem',
+                }}
+              >
+                Key Highlights &amp; Capabilities
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                  gap: '0.75rem',
+                }}
+              >
+                {item.highlights.map((h, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.65rem',
+                      padding: '0.65rem 0.85rem',
+                      background: 'var(--bg-card)',
+                      borderRadius: 'var(--radius-sm)',
+                      border: '1px solid var(--border-light)',
+                      fontSize: '0.875rem',
+                      color: 'var(--text-main)',
+                    }}
+                  >
+                    <span style={{ color: 'var(--accent-primary)', fontWeight: 700 }}>✓</span>
+                    <span>{h}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Specifications */}
           <div style={{ marginBottom: '2.5rem' }}>
@@ -127,8 +145,10 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                     </tr>
                   ))}
                   <tr>
-                    <td style={{ fontWeight: 600, color: 'var(--text-muted)' }}>Location Hub</td>
-                    <td style={{ color: 'var(--text-title)' }}>{item.location}</td>
+                    <td style={{ fontWeight: 600, color: 'var(--text-muted)' }}>
+                      Brand / Manufacturer
+                    </td>
+                    <td style={{ color: 'var(--text-title)' }}>{item.brand || 'Enterprise Grade'}</td>
                   </tr>
                   <tr>
                     <td style={{ fontWeight: 600, color: 'var(--text-muted)' }}>
@@ -195,8 +215,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               }}
             >
               <li>
-                Doorstep delivery available across state metro territory or self-pickup from
-                regional hub.
+                Fast, insured doorstep express delivery or convenient pickup from our local service center.
               </li>
               <li>Refundable security deposit is required prior to equipment handover.</li>
               <li>
@@ -229,7 +248,18 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             >
               {item.name}
             </h1>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>📍 {item.location}</p>
+            <p
+              style={{
+                fontSize: '0.85rem',
+                color: 'var(--accent-primary)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                fontWeight: 500,
+              }}
+            >
+              ✓ Verified Equipment &bull; Ready to Rent
+            </p>
           </div>
 
           {/* Pricing Box */}

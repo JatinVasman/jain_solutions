@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export const Header: React.FC = () => {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -36,39 +38,27 @@ export const Header: React.FC = () => {
         <nav className="nav-left-zone" aria-label="Primary Navigation">
           <ul className="nav-links">
             <li>
-              <Link href="/" className="nav-link active">
+              <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
                 Home
               </Link>
             </li>
             <li>
-              <a
-                href="#about"
-                onClick={(e) => e.preventDefault()}
-                className="nav-link nav-link-unlinked"
+              <Link
+                href="/about"
+                className={`nav-link ${pathname === '/about' ? 'active' : ''}`}
                 title="About"
               >
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#catalogue"
-                onClick={(e) => e.preventDefault()}
-                className="nav-link nav-link-unlinked"
-                title="Catalogue"
-              >
-                Catalogue
-              </a>
-            </li>
-            <li className="nav-desktop-secondary">
-              <a
-                href="#categories"
-                onClick={(e) => e.preventDefault()}
-                className="nav-link nav-link-unlinked"
+              <Link
+                href="/categories"
+                className={`nav-link ${pathname === '/categories' || pathname?.startsWith('/categories/') ? 'active' : ''}`}
                 title="Categories"
               >
                 Categories
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -77,7 +67,7 @@ export const Header: React.FC = () => {
         <div className="nav-center-zone">
           <Link href="/" className="nav-center-logo" aria-label="Jain Solutions Home">
             <Image
-              src="/logo.png"
+              src={'/logo.png'}
               alt="Jain Solutions Logo"
               width={38}
               height={38}
@@ -204,42 +194,28 @@ export const Header: React.FC = () => {
             <div className="nav-mobile-links">
               <Link
                 href="/"
-                className="nav-mobile-link active"
+                className={`nav-mobile-link ${pathname === '/' ? 'active' : ''}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Home</span>
                 <span className="mobile-link-arrow">→</span>
               </Link>
-              <a
-                href="#about"
-                className="nav-mobile-link nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
+              <Link
+                href="/about"
+                className={`nav-mobile-link ${pathname === '/about' ? 'active' : ''}`}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <span>About</span>
-              </a>
-              <a
-                href="#categories"
-                className="nav-mobile-link nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
+                <span className="mobile-link-arrow">→</span>
+              </Link>
+              <Link
+                href="/categories"
+                className={`nav-mobile-link ${pathname === '/categories' || pathname?.startsWith('/categories/') ? 'active' : ''}`}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Categories</span>
-              </a>
-              <a
-                href="#catalogue"
-                className="nav-mobile-link nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
-              >
-                <span>Catalogue</span>
-              </a>
+                <span className="mobile-link-arrow">→</span>
+              </Link>
               <a
                 href="#locations"
                 className="nav-mobile-link nav-link-unlinked"

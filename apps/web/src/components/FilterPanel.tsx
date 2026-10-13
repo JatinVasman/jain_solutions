@@ -1,17 +1,55 @@
-import React from 'react';
-import { CATEGORIES, LOCATIONS } from '../lib/mock-data';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { HERO_CATEGORIES } from '../lib/mock-data';
 
 export interface FilterPanelProps {
   selectedCategory?: string;
-  selectedLocation?: string;
+  onCategoryChange?: (category: string) => void;
+  selectedStatus?: string;
+  onStatusChange?: (status: string) => void;
+  minPrice?: number;
+  maxPrice?: number;
+  onPriceChange?: (min: number, max: number) => void;
+  sortBy?: string;
+  onSortChange?: (sort: string) => void;
+  onReset?: () => void;
 }
 
 export const FilterPanel: React.FC<FilterPanelProps> = ({
-  selectedCategory = '',
-  selectedLocation = '',
+  selectedCategory = 'all',
+  onCategoryChange,
+  selectedStatus = 'all',
+  onStatusChange,
+  minPrice = 0,
+  maxPrice = 25000,
+  onPriceChange,
+  sortBy = 'popular',
+  onSortChange,
+  onReset,
 }) => {
+  const [localMin, setLocalMin] = useState(minPrice);
+  const [localMax, setLocalMax] = useState(maxPrice);
+
+  useEffect(() => {
+    setLocalMin(minPrice);
+    setLocalMax(maxPrice);
+  }, [minPrice, maxPrice]);
+
+  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = Number(e.target.value) || 0;
+    setLocalMin(val);
+    if (onPriceChange) onPriceChange(val, localMax);
+  };
+
+  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = Number(e.target.value) || 25000;
+    setLocalMax(val);
+    if (onPriceChange) onPriceChange(localMin, val);
+  };
+
   return (
-    <aside className="filter-panel" aria-label="Catalogue Filters">
+    <aside className="filter-panel" aria-label="Equipment Filters">
       <div
         style={{
           display: 'flex',
@@ -21,15 +59,18 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         }}
       >
         <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-title)' }}>
-          Filters
+          Filter Equipment
         </h4>
-        <button
-          type="button"
-          className="btn btn-outline btn-sm"
-          style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem' }}
-        >
-          Reset All
-        </button>
+        {onReset && (
+          <button
+            type="button"
+            className="btn btn-outline btn-sm"
+            onClick={onReset}
+            style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem' }}
+          >
+            Reset All
+          </button>
+        )}
       </div>
 
       {/* Category Filter */}
@@ -37,32 +78,67 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         <label htmlFor="filter-category" className="filter-label">
           Category
         </label>
-        <select id="filter-category" className="filter-select" defaultValue={selectedCategory}>
-          <option value="">All Categories</option>
-          {CATEGORIES.map((cat) => (
+        <select
+          id="filter-category"
+          className="filter-select"
+          value={selectedCategory}
+          onChange={(e) => onCategoryChange && onCategoryChange(e.target.value)}
+        >
+          <option value="all">All Categories</option>
+          {HERO_CATEGORIES.map((cat) => (
             <option key={cat.slug} value={cat.slug}>
-              {cat.name} ({cat.itemCount})
+              {cat.icon} {cat.name}
             </option>
           ))}
         </select>
       </div>
 
-      {/* Location Filter */}
+      {/* Availability Status Filter */}
       <div className="filter-group">
-        <label htmlFor="filter-location" className="filter-label">
-          Pickup / Delivery City
+        <label htmlFor="filter-availability" className="filter-label">
+          Equipment Availability
         </label>
-        <select id="filter-location" className="filter-select" defaultValue={selectedLocation}>
-          <option value="">All Regions & Hubs</option>
-          {LOCATIONS.map((loc) => (
-            <option key={loc.city} value={loc.city}>
-              {loc.city} ({loc.hubCount} Hubs)
-            </option>
-          ))}
+        <select
+          id="filter-availability"
+          className="filter-select"
+          value={selectedStatus}
+          onChange={(e) => onStatusChange && onStatusChange(e.target.value)}
+        >
+          <option value="all">All Verified Equipment</option>
+          <option value="available">Available Now</option>
+          <option value="booked">Currently Booked / Waitlist</option>
         </select>
       </div>
 
-      {/* Rental Duration Filter */}
+      {/* Daily Price Range Filter */}
+      <div className="filter-group">
+        <span className="filter-label">Daily Rental Rate (₹)</span>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <input
+            type="number"
+            placeholder="Min (₹)"
+            className="form-input"
+            value={localMin || ''}
+            onChange={handleMinChange}
+            min={0}
+            step={100}
+            style={{ fontSize: '0.85rem' }}
+          />
+          <span style={{ color: 'var(--text-dim)' }}>—</span>
+          <input
+            type="number"
+            placeholder="Max (₹)"
+            className="form-input"
+            value={localMax || ''}
+            onChange={handleMaxChange}
+            min={0}
+            step={500}
+            style={{ fontSize: '0.85rem' }}
+          />
+        </div>
+      </div>
+
+      {/* Rental Tenure Filter */}
       <div className="filter-group">
         <span className="filter-label">Rental Duration</span>
         <div className="filter-checkbox-list">
@@ -78,47 +154,6 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
             <input type="checkbox" />
             <span>Monthly (30+ Days)</span>
           </label>
-          <label className="filter-checkbox-item">
-            <input type="checkbox" />
-            <span>Custom Project Contract</span>
-          </label>
-        </div>
-      </div>
-
-      {/* Price Range Filter */}
-      <div className="filter-group">
-        <span className="filter-label">Daily Price Range</span>
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          <input
-            type="number"
-            placeholder="Min (₹)"
-            className="form-input"
-            defaultValue="500"
-            style={{ fontSize: '0.85rem' }}
-          />
-          <span style={{ color: 'var(--text-dim)' }}>—</span>
-          <input
-            type="number"
-            placeholder="Max (₹)"
-            className="form-input"
-            defaultValue="15000"
-            style={{ fontSize: '0.85rem' }}
-          />
-        </div>
-      </div>
-
-      {/* Availability Status */}
-      <div className="filter-group">
-        <span className="filter-label">Availability</span>
-        <div className="filter-checkbox-list">
-          <label className="filter-checkbox-item">
-            <input type="checkbox" defaultChecked />
-            <span>Available for Instant Booking</span>
-          </label>
-          <label className="filter-checkbox-item">
-            <input type="checkbox" />
-            <span>Available from Next Week</span>
-          </label>
         </div>
       </div>
 
@@ -127,22 +162,29 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         <label htmlFor="filter-sort" className="filter-label">
           Sort By
         </label>
-        <select id="filter-sort" className="filter-select" defaultValue="popular">
+        <select
+          id="filter-sort"
+          className="filter-select"
+          value={sortBy}
+          onChange={(e) => onSortChange && onSortChange(e.target.value)}
+        >
           <option value="popular">Most Popular</option>
           <option value="price_asc">Rental Rate: Low to High</option>
           <option value="price_desc">Rental Rate: High to Low</option>
-          <option value="rating">Highest Rated</option>
-          <option value="newest">Recently Listed</option>
+          <option value="rating">Highest Customer Rating</option>
         </select>
       </div>
 
-      <button
-        type="button"
-        className="btn btn-primary"
-        style={{ width: '100%', marginTop: '1rem' }}
-      >
-        Apply Filters
-      </button>
+      {onReset && (
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={onReset}
+          style={{ width: '100%', marginTop: '1rem', fontSize: '0.85rem' }}
+        >
+          Clear All Filters
+        </button>
+      )}
     </aside>
   );
 };

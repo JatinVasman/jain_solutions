@@ -13,7 +13,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
       <h3 className="category-card-title">{category.name}</h3>
       <p className="category-card-desc">{category.description}</p>
       <div className="category-card-meta">
-        <span>{category.itemCount}+ Units Listed</span>
+        <span>Verified Equipment</span>
         <span>Explore →</span>
       </div>
     </a>
