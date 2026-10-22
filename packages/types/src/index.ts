@@ -5,3 +5,4 @@
 export * from './api.types';
 export * from './health.types';
 export * from './common.types';
+export * from './auth.types';

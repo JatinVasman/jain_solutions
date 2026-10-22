@@ -148,8 +148,35 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                     <td style={{ fontWeight: 600, color: 'var(--text-muted)' }}>
                       Brand / Manufacturer
                     </td>
-                    <td style={{ color: 'var(--text-title)' }}>{item.brand || 'Enterprise Grade'}</td>
+                    <td style={{ color: 'var(--text-title)' }}>
+                      {item.brand || 'Enterprise Grade'}
+                    </td>
                   </tr>
+                  {item.officialProductUrl && (
+                    <tr>
+                      <td style={{ fontWeight: 600, color: 'var(--text-muted)' }}>
+                        Official Manufacturer Page
+                      </td>
+                      <td>
+                        <a
+                          href={item.officialProductUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            color: 'var(--accent-primary)',
+                            fontWeight: 600,
+                            textDecoration: 'none',
+                          }}
+                        >
+                          <span>Visit {item.brand} Official Product Page</span>
+                          <span aria-hidden="true">↗</span>
+                        </a>
+                      </td>
+                    </tr>
+                  )}
                   <tr>
                     <td style={{ fontWeight: 600, color: 'var(--text-muted)' }}>
                       Condition Inspection
@@ -162,6 +189,52 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               </table>
             </div>
           </div>
+
+          {/* Official Manufacturer Verification Box */}
+          {item.officialProductUrl && (
+            <div
+              style={{
+                background: 'linear-gradient(135deg, rgba(24, 119, 242, 0.05) 0%, rgba(14, 165, 233, 0.08) 100%)',
+                border: '1px solid rgba(24, 119, 242, 0.25)',
+                borderRadius: 'var(--radius-md)',
+                padding: '1.25rem 1.5rem',
+                marginBottom: '2.5rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '1rem',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <span style={{ fontSize: '1.2rem' }}>🏢</span>
+                  <span style={{ fontWeight: 600, color: 'var(--text-title)', fontSize: '0.95rem' }}>
+                    Authentic {item.brand} Product Specifications
+                  </span>
+                </div>
+                <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  View technical whitepapers, architectural schematics, and official product documentation directly on {item.brand}’s portal.
+                </p>
+              </div>
+              <a
+                href={item.officialProductUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline btn-sm"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  fontWeight: 600,
+                  background: '#ffffff',
+                }}
+              >
+                <span>Official {item.brand} Product Page</span>
+                <span>↗</span>
+              </a>
+            </div>
+          )}
 
           {/* Owner / Provider Info */}
           <div

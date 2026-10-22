@@ -1,11 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { HERO_CATEGORIES } from '../lib/mock-data';
+import type { BrandItem } from '../lib/brand-data';
 
 export interface FilterPanelProps {
   selectedCategory?: string;
   onCategoryChange?: (category: string) => void;
+  selectedBrands?: string[];
+  onBrandToggle?: (brandId: string) => void;
+  onClearBrands?: () => void;
+  availableBrands?: BrandItem[];
+  brandCounts?: Record<string, number>;
   selectedStatus?: string;
   onStatusChange?: (status: string) => void;
   minPrice?: number;
@@ -19,6 +25,11 @@ export interface FilterPanelProps {
 export const FilterPanel: React.FC<FilterPanelProps> = ({
   selectedCategory = 'all',
   onCategoryChange,
+  selectedBrands = [],
+  onBrandToggle,
+  onClearBrands,
+  availableBrands = [],
+  brandCounts = {},
   selectedStatus = 'all',
   onStatusChange,
   minPrice = 0,
@@ -30,6 +41,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
 }) => {
   const [localMin, setLocalMin] = useState(minPrice);
   const [localMax, setLocalMax] = useState(maxPrice);
+  const [brandSearch, setBrandSearch] = useState('');
 
   useEffect(() => {
     setLocalMin(minPrice);
@@ -48,6 +60,13 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
     if (onPriceChange) onPriceChange(localMin, val);
   };
 
+  const filteredBrands = useMemo(() => {
+    if (!availableBrands || availableBrands.length === 0) return [];
+    if (!brandSearch.trim()) return availableBrands;
+    const q = brandSearch.toLowerCase();
+    return availableBrands.filter((b) => b.name.toLowerCase().includes(q));
+  }, [availableBrands, brandSearch]);
+
   return (
     <aside className="filter-panel" aria-label="Equipment Filters">
       <div
@@ -58,7 +77,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
           marginBottom: '1.25rem',
         }}
       >
-        <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-title)' }}>
+        <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-title)', margin: 0 }}>
           Filter Equipment
         </h4>
         {onReset && (
@@ -92,6 +111,90 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
           ))}
         </select>
       </div>
+
+      {/* Brand / Manufacturer Filter */}
+      {availableBrands && availableBrands.length > 0 && (
+        <div className="filter-group">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '0.65rem',
+            }}
+          >
+            <span className="filter-label" style={{ marginBottom: 0 }}>
+              Brand / Manufacturer
+            </span>
+            {selectedBrands.length > 0 && onClearBrands && (
+              <button
+                type="button"
+                onClick={onClearBrands}
+                className="btn-filter-clear-inline"
+                title="Clear selected brand filters"
+                aria-label="Clear brand filter"
+              >
+                Clear ({selectedBrands.length})
+              </button>
+            )}
+          </div>
+
+          {availableBrands.length > 5 && (
+            <div style={{ marginBottom: '0.65rem' }}>
+              <input
+                type="text"
+                placeholder="Search brands..."
+                value={brandSearch}
+                onChange={(e) => setBrandSearch(e.target.value)}
+                className="filter-brand-search-input"
+                aria-label="Search within brand list"
+              />
+            </div>
+          )}
+
+          <div className="filter-brand-list">
+            {filteredBrands.map((brand) => {
+              const count = brandCounts[brand.id] ?? 0;
+              const isChecked = selectedBrands.includes(brand.id);
+              const isDisabled = count === 0 && !isChecked;
+
+              return (
+                <label
+                  key={brand.id}
+                  className={`filter-brand-item ${isDisabled ? 'disabled' : ''} ${
+                    isChecked ? 'selected' : ''
+                  }`}
+                  title={
+                    isDisabled
+                      ? `No ${brand.name} equipment currently available in this category`
+                      : `${count} equipment item(s) available`
+                  }
+                >
+                  <div className="filter-brand-item-left">
+                    <input
+                      type="checkbox"
+                      className="filter-brand-checkbox"
+                      checked={isChecked}
+                      onChange={() => onBrandToggle && onBrandToggle(brand.id)}
+                      disabled={isDisabled}
+                      aria-label={`Filter by ${brand.name}`}
+                    />
+                    <span className="filter-brand-name">{brand.name}</span>
+                  </div>
+                  <span className={`filter-brand-count ${count === 0 ? 'zero-count' : ''}`}>
+                    ({count})
+                  </span>
+                </label>
+              );
+            })}
+            {filteredBrands.length === 0 && (
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
+                No matching brands found
+              </p>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Availability Status Filter */}
       <div className="filter-group">

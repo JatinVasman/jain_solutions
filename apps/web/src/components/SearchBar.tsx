@@ -1,25 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { HERO_CATEGORIES } from '../lib/mock-data';
+import { getBrandsForCategory, normalizeBrandId, getAllBrands } from '../lib/brand-data';
 
 export interface SearchBarProps {
   placeholder?: string;
   defaultValue?: string;
   className?: string;
 }
-
-const BRANDS = [
-  'All Brands',
-  'Hikvision',
-  'Cisco',
-  'TP-Link',
-  'Dahua',
-  'Dell',
-  'Schneider Electric',
-  'CommScope',
-];
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Search products, brands or categories…',
@@ -29,23 +19,36 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const router = useRouter();
   const [query, setQuery] = useState(defaultValue);
   const [category, setCategory] = useState('');
-  const [brand, setBrand] = useState('All Brands');
+  const [brand, setBrand] = useState('all');
+
+  const availableBrands = useMemo(() => {
+    if (category) {
+      return getBrandsForCategory(category);
+    }
+    return getAllBrands();
+  }, [category]);
+
+  const handleCategoryChange = (newCat: string) => {
+    setCategory(newCat);
+    // If brand is not available in new category, reset to 'all'
+    if (newCat && brand !== 'all') {
+      const validIds = getBrandsForCategory(newCat).map((b) => b.id);
+      if (!validIds.includes(brand)) {
+        setBrand('all');
+      }
+    }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (category) {
-      const searchParams = new URLSearchParams();
-      if (query.trim()) searchParams.set('q', query.trim());
-      if (brand && brand !== 'All Brands') searchParams.set('brand', brand);
-      const queryString = searchParams.toString();
-      router.push(`/categories/${category}${queryString ? `?${queryString}` : ''}`);
-    } else {
-      const target = document.getElementById('featured-equipment');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+    const searchParams = new URLSearchParams();
+    if (category) searchParams.set('category', category);
+    if (query.trim()) searchParams.set('q', query.trim());
+    if (brand && brand !== 'all') searchParams.set('brand', normalizeBrandId(brand));
+
+    const queryString = searchParams.toString();
+    router.push(queryString ? `/categories?${queryString}` : '/categories');
   };
 
   return (
@@ -90,7 +93,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               id="search-category-select"
               className="search-field-select"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => handleCategoryChange(e.target.value)}
               aria-label="Filter by category"
             >
               <option value="">All Categories</option>
@@ -107,7 +110,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           {/* Brand Dropdown */}
           <div className="search-field brand-field">
             <label htmlFor="search-brand-select" className="search-field-label">
-              Brand
+              Brand / Manufacturer
             </label>
             <select
               id="search-brand-select"
@@ -116,9 +119,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               onChange={(e) => setBrand(e.target.value)}
               aria-label="Filter by brand"
             >
-              {BRANDS.map((b) => (
-                <option key={b} value={b}>
-                  {b}
+              <option value="all">All Brands</option>
+              {availableBrands.map((b) => (
+                <option key={b.id} value={b.id}>
+                  {b.name}
                 </option>
               ))}
             </select>

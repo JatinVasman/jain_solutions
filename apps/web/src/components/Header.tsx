@@ -5,10 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { FEATURED_PRODUCTS } from '../lib/mock-data';
+import { useAuth } from '../context/auth-context';
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const { user, isAuthenticated, logout, getRoleLandingUrl } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -120,6 +122,15 @@ export const Header: React.FC = () => {
                 title="Categories"
               >
                 Categories
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}
+                title="Contact"
+              >
+                Contact
               </Link>
             </li>
           </ul>
@@ -265,14 +276,37 @@ export const Header: React.FC = () => {
             )}
           </div>
 
-          {/* Sign In link */}
-          <a
-            href="#signin"
-            onClick={(e) => e.preventDefault()}
-            className="nav-signin-link nav-link-unlinked"
-          >
-            Sign In
-          </a>
+          {/* Authentication State */}
+          {isAuthenticated ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <Link
+                href={getRoleLandingUrl(user)}
+                className="nav-signin-link"
+                style={{ fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+                title="View your account portal"
+              >
+                <span>👤</span>
+                <span>{user?.name?.split(' ')[0] || 'Portal'}</span>
+              </Link>
+              <button
+                type="button"
+                onClick={() => logout()}
+                className="btn btn-outline btn-sm"
+                style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Link href="/login" className="nav-signin-link">
+                Sign In
+              </Link>
+              <Link href="/register" className="btn btn-outline btn-sm" style={{ fontSize: '0.8rem', padding: '0.4rem 0.75rem' }}>
+                Register
+              </Link>
+            </div>
+          )}
 
           {/* Primary CTA */}
           <Link
@@ -409,26 +443,30 @@ export const Header: React.FC = () => {
                 <span>Categories</span>
                 <span className="mobile-link-arrow">→</span>
               </Link>
-              <a
-                href="#locations"
-                className="nav-mobile-link nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
+              <Link
+                href="/contact"
+                className={`nav-mobile-link ${pathname === '/contact' ? 'active' : ''}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>Contact</span>
+                <span className="mobile-link-arrow">→</span>
+              </Link>
+              <Link
+                href="/locations"
+                className={`nav-mobile-link ${pathname === '/locations' ? 'active' : ''}`}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Locations</span>
-              </a>
-              <a
-                href="#jobs"
-                className="nav-mobile-link nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
+                <span className="mobile-link-arrow">→</span>
+              </Link>
+              <Link
+                href="/careers"
+                className={`nav-mobile-link ${pathname === '/careers' ? 'active' : ''}`}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Careers</span>
-              </a>
+                <span className="mobile-link-arrow">→</span>
+              </Link>
             </div>
 
             <div className="nav-mobile-divider" />
@@ -466,16 +504,44 @@ export const Header: React.FC = () => {
                 </button>
               </form>
 
-              <a
-                href="#signin"
-                className="btn btn-secondary nav-mobile-action-btn nav-link-unlinked"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                }}
-              >
-                <span>Sign In</span>
-              </a>
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href={getRoleLandingUrl(user)}
+                    className="btn btn-secondary nav-mobile-action-btn"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span>My Account ({user?.name?.split(' ')[0]})</span>
+                  </Link>
+                  <button
+                    type="button"
+                    className="btn btn-outline nav-mobile-action-btn"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      logout();
+                    }}
+                  >
+                    <span>Sign Out</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="btn btn-secondary nav-mobile-action-btn"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span>Sign In</span>
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="btn btn-outline nav-mobile-action-btn"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span>Create Account</span>
+                  </Link>
+                </>
+              )}
 
               <Link
                 href="/categories"

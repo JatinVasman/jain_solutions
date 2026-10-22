@@ -1,13 +1,27 @@
-import React from 'react';
-import type { Metadata } from 'next';
-import Link from 'next/link';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Admin Console | Jain Solutions',
-  description: 'Central management console for super administrators.',
-};
+import React from 'react';
+import Link from 'next/link';
+import { useAuth } from '../../context/auth-context';
+import { RoleType, ApprovalStatus } from '@rental-platform/types';
 
 export default function AdminPortalPage() {
+  const { user, isAuthenticated, loading } = useAuth();
+
+  const adminRoles = [
+    RoleType.SUPER_ADMIN,
+    RoleType.ADMIN,
+    RoleType.OPERATIONS,
+    RoleType.CATALOGUE_MANAGER,
+    RoleType.FINANCE,
+    RoleType.HR,
+    RoleType.CUSTOMER_SUPPORT,
+  ];
+
+  const userAdminRole = user?.roles.find(
+    (r) => adminRoles.includes(r.name) && r.approvalStatus === ApprovalStatus.APPROVED,
+  );
+
   return (
     <div className="page-container" style={{ maxWidth: '820px', padding: '3rem 1.5rem 5rem' }}>
       <div style={{ marginBottom: '1.5rem' }}>
@@ -53,37 +67,84 @@ export default function AdminPortalPage() {
             background: 'var(--teal-50)',
             border: '1px solid var(--teal-200)',
             padding: '0.25rem 0.75rem',
-            borderRadius: 'var(--radius-pill)',
+            borderRadius: '9999px',
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
             marginBottom: '0.85rem',
           }}
         >
-          Staff & Operations Only
+          Authorized Staff Only
         </span>
 
-        <h1 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>
-          Admin Console
-        </h1>
-
-        <p
-          className="section-desc"
+        <h1
           style={{
-            fontSize: '0.975rem',
-            maxWidth: '560px',
-            margin: '0 auto 1.75rem',
-            lineHeight: 1.6,
+            fontSize: '1.875rem',
+            fontWeight: 800,
+            color: 'var(--text-primary)',
+            letterSpacing: '-0.02em',
+            margin: '0 0 0.75rem',
           }}
         >
-          This portal is currently under active development. Direct access via public navigation
-          has been removed and will be restricted to authorized personnel via our secure
-          authentication system.
-        </p>
+          Administrative Console
+        </h1>
+
+        {/* Dynamic RBAC Protection Banner */}
+        {isAuthenticated && user ? (
+          userAdminRole ? (
+            <div
+              style={{
+                background: '#f0fdf4',
+                border: '1px solid #bbf7d0',
+                borderRadius: 'var(--radius-md)',
+                padding: '1rem',
+                color: '#166534',
+                fontSize: '0.9rem',
+                maxWidth: '560px',
+                margin: '0 auto 1.5rem',
+              }}
+            >
+              <strong>Welcome, {user.name}!</strong> Authenticated with <strong>{userAdminRole.name}</strong> privileges.
+              Administrative business dashboards and operations management modules will be introduced in subsequent
+              phases.
+            </div>
+          ) : (
+            <div
+              style={{
+                background: '#fef2f2',
+                border: '1px solid #fecaca',
+                borderRadius: 'var(--radius-md)',
+                padding: '1.25rem',
+                color: '#991b1b',
+                fontSize: '0.875rem',
+                maxWidth: '560px',
+                margin: '0 auto 1.5rem',
+                textAlign: 'left',
+                lineHeight: 1.5,
+              }}
+            >
+              <strong>Access Denied (403 Forbidden):</strong> Your account ({user.email}) does not have administrative
+              authorization. Public registration cannot grant staff access. Administrative accounts are strictly
+              provisioned through internal corporate controls.
+            </div>
+          )
+        ) : (
+          <p
+            style={{
+              fontSize: '0.975rem',
+              maxWidth: '560px',
+              margin: '0 auto 1.75rem',
+              color: 'var(--text-muted)',
+              lineHeight: 1.6,
+            }}
+          >
+            Access to this console requires an authenticated administrative session. Public accounts are prohibited.
+          </p>
+        )}
 
         <div
           style={{
             background: '#f8fafc',
-            border: '1px dashed var(--border-teal-subtle)',
+            border: '1px dashed var(--border-medium)',
             borderRadius: 'var(--radius-md)',
             padding: '1.25rem 1.5rem',
             maxWidth: '540px',
@@ -101,21 +162,21 @@ export default function AdminPortalPage() {
               letterSpacing: '0.04em',
             }}
           >
-            🔒 Upcoming Capabilities
+            🔒 Administrative Architecture
           </p>
           <ul
             style={{
               margin: 0,
               paddingLeft: '1.2rem',
               fontSize: '0.85rem',
-              color: 'var(--text-body)',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
             }}
           >
-            <li>Multi-category catalogue and inventory management</li>
-            <li>Rental booking approvals & dispatch coordination</li>
-            <li>Partner and owner KYC verification pipelines</li>
-            <li>Role-based access control (RBAC) & audit logs</li>
+            <li>Super Admin, Admin, Operations, Catalogue Manager, and Finance roles</li>
+            <li>Role-based access control (RBAC) enforced at backend controller and guard levels</li>
+            <li>Cryptographic session invalidation and audit logging</li>
+            <li>Zero public registration paths for elevated permissions</li>
           </ul>
         </div>
 
@@ -127,11 +188,17 @@ export default function AdminPortalPage() {
             flexWrap: 'wrap',
           }}
         >
-          <Link href="/login" className="btn btn-primary btn-md">
-            Sign In with Admin Credentials →
-          </Link>
+          {isAuthenticated ? (
+            <Link href="/account" className="btn btn-secondary btn-md">
+              Return to Account Overview
+            </Link>
+          ) : (
+            <Link href="/login" className="btn btn-primary btn-md">
+              Sign In with Authorized Account →
+            </Link>
+          )}
           <Link href="/" className="btn btn-secondary btn-md">
-            Return to Marketplace Home
+            Marketplace Home
           </Link>
         </div>
       </div>

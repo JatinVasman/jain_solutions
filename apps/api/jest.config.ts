@@ -7,6 +7,14 @@ const config: Config = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
+  moduleNameMapper: {
+    '^@rental-platform/types$': '<rootDir>/../../../packages/types/src',
+    '^@rental-platform/validation$': '<rootDir>/../../../packages/validation/src',
+    '^@rental-platform/config$': '<rootDir>/../../../packages/config/src',
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!.*(@nestjs/jwt)/)',
+  ],
   collectCoverageFrom: ['**/*.(t|j)s', '!**/*.module.ts', '!main.ts'],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',

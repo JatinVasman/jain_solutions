@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { HERO_CATEGORIES } from '../lib/mock-data';
 
 export const Footer: React.FC = () => {
   return (
@@ -18,70 +19,38 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="footer-col">
-            <h5>Catalogue</h5>
+            <h5>Categories</h5>
             <ul>
+              {HERO_CATEGORIES.map((cat) => (
+                <li key={cat.id}>
+                  <Link href={`/categories?category=${cat.slug}`}>
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
               <li>
-                <a href="#categories-section">Power & Energy</a>
-              </li>
-              <li>
-                <a href="#categories-section">Electronics & IT</a>
-              </li>
-              <li>
-                <a href="#categories-section">Cameras & Audio</a>
-              </li>
-              <li>
-                <a href="#categories-section">Vehicles & Fleet</a>
-              </li>
-              <li>
-                <a href="#categories-section">Tools & Hardware</a>
-              </li>
-              <li>
-                <a href="#categories-section">All Categories</a>
+                <Link href="/categories">All Categories</Link>
               </li>
             </ul>
           </div>
 
           <div className="footer-col">
-            <h5>Portals</h5>
+            <h5>Company</h5>
             <ul>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Customer Account</a>
+                <Link href="/about">About Us</Link>
               </li>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Product Owner Portal</a>
+                <Link href="/contact">Contact Support</Link>
               </li>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Partner Program</a>
+                <Link href="/locations">Locations & Hubs</Link>
               </li>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Freelancer Network</a>
+                <Link href="/careers">Careers & Jobs</Link>
               </li>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Admin Console</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
-            <h5>Company & Jobs</h5>
-            <ul>
-              <li>
-                <a href="#how-it-works">About Platform</a>
-              </li>
-              <li>
-                <a href="#categories-section">Locations & Hubs</a>
-              </li>
-              <li>
-                <a href="#how-it-works">Careers & Jobs</a>
-              </li>
-              <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>My Applications</a>
-              </li>
-              <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Contact Support</a>
-              </li>
-              <li>
-                <a href="#how-it-works">Help & FAQ</a>
+                <Link href="/faq">Help & FAQ</Link>
               </li>
             </ul>
           </div>
@@ -90,16 +59,16 @@ export const Footer: React.FC = () => {
             <h5>Legal & Terms</h5>
             <ul>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Terms of Service</a>
+                <Link href="/terms">Terms of Service</Link>
               </li>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Privacy Policy</a>
+                <Link href="/privacy">Privacy Policy</Link>
               </li>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Rental Terms</a>
+                <Link href="/terms">Rental Terms</Link>
               </li>
               <li>
-                <a href="#" onClick={(e) => e.preventDefault()}>Security Deposits</a>
+                <Link href="/faq">Security Deposits</Link>
               </li>
             </ul>
           </div>
@@ -108,9 +77,10 @@ export const Footer: React.FC = () => {
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} Jain Solutions. All rights reserved.</p>
           <div className="footer-legal-links">
-            <a href="#" onClick={(e) => e.preventDefault()}>Privacy</a>
-            <a href="#" onClick={(e) => e.preventDefault()}>Terms</a>
-            <a href="#categories-section">Locations</a>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+            <Link href="/locations">Locations</Link>
+            <Link href="/contact">Contact</Link>
           </div>
         </div>
       </div>
